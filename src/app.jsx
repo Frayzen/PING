@@ -8,7 +8,7 @@ function App() {
 
             </div>
             <div className="w75">
-                <TextEditor />
+
             </div>
         </div>
     );
