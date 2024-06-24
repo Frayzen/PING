@@ -1,5 +1,5 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
-import { printTree } from './backend/files';
+import { getFilesJson } from './backend/files';
 try {
     require('electron-reloader')(module)
 } catch (_) { }
@@ -17,8 +17,8 @@ const createWindow = () => {
     });
 
     ipcMain.on('fetch-tree', (event, path) => {
-        var files = printTree(path);
-        console.log("oyoyoyoyoyoyo", files);
+        var files = getFilesJson(path);
+        console.log(files);
     })
 
     mainWindow.removeMenu()
