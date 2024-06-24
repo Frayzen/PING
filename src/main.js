@@ -1,8 +1,11 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
+import { printTree } from './backend/files';
 try {
-  require('electron-reloader')(module)
-} catch (_) {}
+    require('electron-reloader')(module)
+} catch (_) { }
 
+
+// Start the t
 const createWindow = () => {
     // Create the browser window.
     const mainWindow = new BrowserWindow({
@@ -13,14 +16,20 @@ const createWindow = () => {
         },
     });
 
+    ipcMain.on('fetch-tree', (event, path) => {
+        var files = printTree(path);
+        console.log("oyoyoyoyoyoyo", files);
+    })
+
     mainWindow.removeMenu()
 
     // and load the index.html of the app.
     mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
     // Open the DevTools.
-    // mainWindow.webContents.openDevTools();
-};
+    mainWindow.webContents.openDevTools();
+
+}
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
