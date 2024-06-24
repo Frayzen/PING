@@ -1,0 +1,7 @@
+#filetree * {
+    list-style: none;
+}
+
+#filetree i {
+    padding: .5rem;
+}

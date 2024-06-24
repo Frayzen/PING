@@ -1,0 +1,17 @@
+#profile {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 20rem;
+}
+
+#profile-picture {
+    width: 8rem;
+    aspect-ratio : 1 / 1;
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+        url("../media/images/sloth.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+}
