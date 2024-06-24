@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, globalShortcut } from 'electron';
 try {
   require('electron-reloader')(module)
 } catch (_) {}
@@ -15,11 +15,15 @@ const createWindow = () => {
 
     mainWindow.removeMenu()
 
+    globalShortcut.register('CommandOrControl+S', () => {
+        mainWindow.webContents.send('save-text');
+    });
+
     // and load the index.html of the app.
     mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
     // Open the DevTools.
-    // mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished
@@ -35,5 +39,18 @@ app.whenReady().then(() => {
             createWindow();
         }
     });
+
+    globalShortcut.register('CommandOrControl+S', () => {
+        BrowserWindow.getFocusedWindow().webContents.send('save-text');
+    });
 });
 
+app.on('will-quit', () => {
+    globalShortcut.unregisterAll();
+});
+
+app.on('window-all-closed', () => {
+    if (process.platform !== 'darwin') {
+        app.quit();
+    }
+});

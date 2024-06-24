@@ -1,4 +1,5 @@
 import React from "react";
+import TextEditor from "./components/text_editor/TextEditor.jsx";
 
 function App() {
     return (
@@ -7,7 +8,7 @@ function App() {
 
             </div>
             <div className="w75">
-
+                <TextEditor />
             </div>
         </div>
     );
