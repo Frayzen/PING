@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import FileTreeElement from "./fileTreeElement.jsx";
-import { fileManager } from "../fileManager.js";
 
-const FileTree = () => {
+const FileTree = ({ fileManager }) => {
     const [fileTree, setFileTree] = useState(undefined);
     useEffect(() => {
         fileManager.fetchFiles().then((response) => {
@@ -24,11 +23,11 @@ const FileTree = () => {
         );
     }
     return (
-        <div className="overflow-x-hidden mx-1" id="filetree">
+        <div className="overflow-x-hidden mx-1 h-100 my-2" id="filetree">
             <ul className="ps-0">
                 <nobr>
                     <li>
-                        <FileTreeElement file={fileTree} />
+                        <FileTreeElement onFileClick={fileManager.openFile} file={fileTree} />
                     </li>
                 </nobr>
             </ul>

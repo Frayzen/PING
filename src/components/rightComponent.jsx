@@ -2,10 +2,10 @@ import React from "react";
 import AlertComponent from "./alertComponent.jsx";
 import OpenFiles from "./openFiles/openFiles.jsx";
 
-const RightComponent = () => {
+const RightComponent = ({ fileManager }) => {
     return (
         <>
-            <OpenFiles />
+            <OpenFiles files={fileManager.openFiles} />
             <AlertComponent
                 title="Bootstrap"
                 time="11 mins ago"

@@ -2,19 +2,8 @@ import React, { useState } from "react";
 import FileOpenText from "./fileOpenText.jsx";
 import TabListItem from "./tabListItem.jsx";
 
-const OpenFiles = () => {
+const OpenFiles = ({ files }) => {
     const [active, setActive] = useState(0);
-    const files = [
-        {
-            name: "File 1",
-            content: "Text 1"
-        },
-        {
-            name: "Other",
-            content: "Tim is wrong"
-        }
-    ]
-
     return (
         <>
             <ul className="nav nav-tabs border-0 align-self-end mt-1" id="myTab" role="tablist">
