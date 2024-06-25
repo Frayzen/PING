@@ -1,44 +1,16 @@
 import React from "react";
+import FileTree from "./fileTree/fileTree.jsx";
+import ProfileComponent from "./profile.jsx";
 
 const LeftComponent = () => {
     return (
         <>
-            <ul id="filetree">
-                <li>
-                    <i className="fa-regular fa-folder-open"></i>root
-                    <ul>
-                        <li>
-                            <span></span>
-                            <i className="fa-regular fa-folder-open"></i>folder-one
-                            <ul>
-                                <li>
-                                    <i className="fa-brands fa-java"></i>folder-two
-                                    <span></span>file_one.txt
-                                </li>
-                                <li>
-                                    <i className="fa-brands fa-python"></i>folder-two
-                                    <span></span>file_one.txt
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <span></span>
-                            <i className="fa-regular fa-folder-open"></i>folder-two
-                            <ul>
-                                <li>
-                                    <i className="fa-regular fa-file"></i>folder-two
-                                    <span></span>file_one.txt
-                                </li>
-                                <li>
-                                    <i className="fa-regular fa-file"></i>folder-two
-                                    <span></span>file_one.txt
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-
+            <div className="d-flex h-100 flex-column py-2">
+                <h3 className="text-center">File Tree</h3>
+                <FileTree />
+                <div className="flex-grow-1"></div>
+                <ProfileComponent />
+            </div>
         </>
     );
 }

@@ -1,5 +1,9 @@
-#filetree * {
+#filetree ul {
     list-style: none;
+}
+
+#filetree a {
+    text-decoration: none;
 }
 
 #filetree i {

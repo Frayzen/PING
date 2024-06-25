@@ -12,7 +12,6 @@ function App() {
             <div className="w-100 bg-body-tertiary">
                 <RightComponent />
             </div>
-            <ProfileComponent />
         </div>
     );
 }
