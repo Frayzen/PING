@@ -16,10 +16,6 @@ const createWindow = () => {
         },
     });
 
-    ipcMain.on('fetch-tree', (event, path) => {
-        var files = getFilesJson(path);
-        console.log(files);
-    })
 
     mainWindow.removeMenu()
 
