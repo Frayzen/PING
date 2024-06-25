@@ -1,4 +1,5 @@
 import { app, BrowserWindow, globalShortcut } from 'electron';
+import { ipcMain } from 'electron';
 try {
     require('electron-reloader')(module)
 } catch (_) { }
@@ -14,6 +15,7 @@ const createWindow = () => {
             preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
         },
     });
+
 
 
     mainWindow.removeMenu()
