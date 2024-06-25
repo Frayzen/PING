@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import AlertComponent from "./alertComponent.jsx";
 import OpenFiles from "./openFiles/openFiles.jsx";
+import { FileManagerContext } from "./fileManager.js";
 
-const RightComponent = ({ fileManager }) => {
+const RightComponent = () => {
+    const fileManager = useContext(FileManagerContext);
     return (
         <>
             <OpenFiles files={fileManager.openFiles} />

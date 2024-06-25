@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import FileTreeElement from "./fileTreeElement.jsx";
+import { FileManagerContext } from "../fileManager.js";
 
-const FileTree = ({ fileManager }) => {
+const FileTree = () => {
+    const fileManager = useContext(FileManagerContext);
     const [fileTree, setFileTree] = useState(undefined);
     useEffect(() => {
         fileManager.fetchFiles().then((response) => {
@@ -27,7 +29,7 @@ const FileTree = ({ fileManager }) => {
             <ul className="ps-0">
                 <nobr>
                     <li>
-                        <FileTreeElement onFileClick={fileManager.openFile} file={fileTree} />
+                        <FileTreeElement onFileClick={() => fileManager.openFile} file={fileTree} />
                     </li>
                 </nobr>
             </ul>

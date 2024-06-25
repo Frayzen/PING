@@ -1,7 +1,13 @@
-import { useState } from "react";
+import { useState, createContext } from "react";
 
-const [openFiles, setOpenFiles] = useState([]);
-export const fileManager = {
+const [openFiles, setOpenFiles] = useState([
+    {
+        name: "Unnamed",
+        content: "Empty",
+    }
+]);
+
+const fileManager = {
     fetchFiles: async () => {
         // wait 1 second
         await new Promise((resolve) => setTimeout(resolve, 500));
@@ -65,11 +71,15 @@ export const fileManager = {
     },
     saveFileContent: async (path, content) => {
     },
-    openFiles: openFiles,
+    openFiles,
     openFile: (file) => {
+        console.log("OPEN")
         setOpenFiles([...openFiles, file]);
     },
     closeFile: (file) => {
         setOpenFiles(openFiles.filter((f) => f.path !== file.path));
     },
 };
+
+export const FileManagerContext = createContext(fileManager);
+
