@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 
 
 export function getFileContent(filePath) {
@@ -44,6 +45,34 @@ export function createFile(filePath) {
         return true;
     } catch (err) {
         console.error(`Error creating file ${filePath}:`, err);
+        return false;
+    }
+}
+
+export function moveFile(src, dst) {
+    const srcName = path.basename(src);
+    const dstPath = path.join(dst, srcName);
+
+    try {
+        fs.renameSync(src, dstPath);
+        console.log(`Moved ${src} to ${dstPath}`);
+        return true;
+    } catch (err) {
+        console.error(`Error moving ${src} to ${dst}:`, err);
+        return false;
+    }
+}
+
+export function renameFile(src, newName) {
+    const srcDir = path.dirname(src);
+    const newFilePath = path.join(srcDir, newName);
+
+    try {
+        fs.renameSync(src, newFilePath);
+        console.log(`Renamed ${src} to ${newFilePath}`);
+        return true;
+    } catch (err) {
+        console.error(`Error renaming ${src} to ${newFilePath}:`, err);
         return false;
     }
 }
