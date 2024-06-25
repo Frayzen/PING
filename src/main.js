@@ -1,8 +1,10 @@
 import { app, BrowserWindow, globalShortcut } from 'electron';
 try {
-  require('electron-reloader')(module)
-} catch (_) {}
+    require('electron-reloader')(module)
+} catch (_) { }
 
+
+// Start the t
 const createWindow = () => {
     // Create the browser window.
     const mainWindow = new BrowserWindow({
@@ -13,6 +15,7 @@ const createWindow = () => {
         },
     });
 
+
     mainWindow.removeMenu()
 
     globalShortcut.register('CommandOrControl+S', () => {
@@ -22,8 +25,12 @@ const createWindow = () => {
     // and load the index.html of the app.
     mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
+    globalShortcut.register('CommandOrControl+D', () => {
+        mainWindow.webContents.openDevTools();
+    });
+
     // Open the DevTools.
-    // mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished

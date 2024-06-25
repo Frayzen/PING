@@ -1,15 +1,18 @@
 import React from "react";
-import TextEditor from "./components/text_editor/TextEditor.jsx";
+import RightComponent from "./components/rightComponent.jsx";
+import LeftComponent from "./components/leftComponent.jsx";
+import ProfileComponent from "./components/profile.jsx";
 
 function App() {
     return (
-        <div className="container-fluid">
-            <div className="w25">
-
+<div className="container-fluid bg-light-subtle min-vh-100 min-vw-100 p-0 d-flex">
+            <div className="col-3 bg-body-secondary">
+                <LeftComponent />
             </div>
-            <div className="w75">
-
+            <div className="w-100 bg-body-tertiary">
+                <RightComponent />
             </div>
+            <ProfileComponent />
         </div>
     );
 }
