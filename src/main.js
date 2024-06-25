@@ -1,4 +1,6 @@
 import { app, BrowserWindow, globalShortcut } from 'electron';
+import { getFilesJson, filterFilesJson } from './backend/files';
+import { ipcMain } from 'electron';
 try {
     require('electron-reloader')(module)
 } catch (_) { }
@@ -14,7 +16,15 @@ const createWindow = () => {
             preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
         },
     });
+    
+    ipcMain.on('fetch-tree', (event, path) =>
+    {
+        var files = getFilesJson('./test-project');
+        var filteredFiles = filterFilesJson(files, path);
 
+        console.log("all files = ", files);
+        console.log("filtered files = ", filteredFiles);
+    });
 
     mainWindow.removeMenu()
 

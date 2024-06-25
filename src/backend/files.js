@@ -90,6 +90,7 @@ export function getFilesJson(dirPath, pattern = '') {
                         const folderObject = {
                             name: fileName,
                             type: 'folder',
+                            path: filePath,
                             children: []
                         };
                         json.push(folderObject);
@@ -99,7 +100,8 @@ export function getFilesJson(dirPath, pattern = '') {
                     if (file.startsWith(pattern)) {
                         const fileObject = {
                             name: fileName,
-                            type: 'file'
+                            type: 'file',
+                            path: filePath
                         };
                         json.push(fileObject);
                     }
@@ -111,6 +113,38 @@ export function getFilesJson(dirPath, pattern = '') {
         return JSON.stringify(filesJson, null, 2);
     } catch (err) {
         console.error(`Error building files JSON for path ${dirPath}:`, err);
+        return null;
+    }
+}
+
+
+
+export function filterFilesJson(filesJson, searchString) {
+    try {
+        const filterFiles = (json, currentPath = '') => {
+            return json
+                .map(item => {
+                    const newPath = path.join(currentPath, item.name);
+                    const searchLower = searchString.toLowerCase(); 
+
+                    if (item.type === 'folder') {
+                        const children = filterFiles(item.children, newPath);
+                        if (children.length > 0 || newPath.toLowerCase().includes(searchLower)) { 
+                            return { ...item, children };
+                        }
+                    } else if (newPath.toLowerCase().includes(searchLower)) { 
+                        return item;
+                    }
+                    return null;
+                })
+                .filter(item => item !== null);
+        };
+
+        const parsedJson = JSON.parse(filesJson);
+        const filteredJson = filterFiles(parsedJson);
+        return JSON.stringify(filteredJson, null, 2);
+    } catch (err) {
+        console.error('Error filtering files JSON:', err);
         return null;
     }
 }
