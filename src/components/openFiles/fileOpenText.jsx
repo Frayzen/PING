@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { FileManagerContext } from "../fileManager.js";
-const FileOpenText = ({ active, id, path }) => {
+const FileOpenText = ({ id, path }) => {
     const [content, setContent] = useState(undefined);
     const fileManager = useContext(FileManagerContext);
     useEffect(() => {
@@ -8,21 +8,23 @@ const FileOpenText = ({ active, id, path }) => {
             setContent(response);
         });
     }, [content]);
-    if (content == undefined) {
-        return (
-            <div className="spinner-border text-secondary mx-auto my-2" role="status">
-                <span className="visually-hidden">Loading...</span>
-            </div>
-        );
-    }
-
     return (
-        <>
-            <div className={`tab-pane fade ${active ? "show active" : ""}`} id={id} role="tabpanel" aria-labelledby={id}>
-                {content}
-            </div>
-        </>
+        <FileManagerContext.Consumer>
+            {(fileManager) => {
+                const active = fileManager.active == id;
+                return (
+                    <div className={`tab-pane fade ${active ? "show active" : ""}`} id={`tab${id}`} role="tabpanel" aria-labelledby={`${id}`}>
+                        {content == undefined &&
+                            <div className="spinner-border text-secondary mx-auto my-2" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </div>
+                        }
+                        {content != undefined && content}
+                    </div>
+                );
+            }}
+        </FileManagerContext.Consumer >
     );
-}
+};
 
 export default FileOpenText;
