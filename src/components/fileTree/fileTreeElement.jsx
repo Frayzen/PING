@@ -31,10 +31,7 @@ const FileTreeElement = ({ file }) => {
     return (
         <>
             <a href="#" className="text-white" onClick={() => {
-                fileManager.openFile({
-                    name: file.name,
-                    path: file.path,
-                })
+                fileManager.openFile(file);
             }}>
                 <i className="fa-brands fa-java"></i>
                 {file.name}

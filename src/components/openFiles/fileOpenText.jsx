@@ -1,29 +1,25 @@
 import React, { useState, useEffect, useContext } from "react";
 import { FileManagerContext } from "../fileManager.js";
-const FileOpenText = ({ id, path }) => {
-    const [content, setContent] = useState(undefined);
+const FileOpenText = ({ file }) => {
+    const [loading, isLoading] = useState(true);
     const fileManager = useContext(FileManagerContext);
     useEffect(() => {
-        fileManager.fetchFileContent(path).then((response) => {
-            setContent(response);
+        fileManager.fetchFileContent(file.path).then((response) => {
+            file.content = response;
+            isLoading(false);
         });
-    }, [content]);
+    }, []);
+    const id = file.uid;
+    const active = fileManager.active == id;
     return (
-        <FileManagerContext.Consumer>
-            {(fileManager) => {
-                const active = fileManager.active == id;
-                return (
-                    <div className={`tab-pane fade ${active ? "show active" : ""}`} id={`tab${id}`} role="tabpanel" aria-labelledby={`${id}`}>
-                        {content == undefined &&
-                            <div className="spinner-border text-secondary mx-auto my-2" role="status">
-                                <span className="visually-hidden">Loading...</span>
-                            </div>
-                        }
-                        {content != undefined && content}
-                    </div>
-                );
-            }}
-        </FileManagerContext.Consumer >
+        <div className={`tab-pane fade ${active ? "show active" : ""}`} id={id} role="tabpanel" aria-labelledby={id}>
+            {loading &&
+                <div className="spinner-border text-secondary mx-auto my-2" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </div>
+            }
+            {!loading && file.content}
+        </div>
     );
 };
 

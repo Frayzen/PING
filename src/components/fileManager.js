@@ -1,8 +1,39 @@
 import { useState, createContext } from "react";
 
 export const setupFileManager = () => {
-    const [openFiles, setOpenFiles] = useState([]);
-    const [active, setActive] = useState(0);
+    const [openFiles, setOpenFiles] = useState([{
+        name: "Untitled",
+        path: "./Untitled",
+        uid: "new",
+    },
+    {
+        name: "Untitled",
+        path: "./Untitled",
+        uid: "new2",
+    },
+    {
+        name: "Untitled",
+        path: "./Untitled",
+        uid: "new3",
+    },
+    {
+        name: "Untitled",
+        path: "./Untitled",
+        uid: "new4",
+    },
+    {
+        name: "Untitled",
+        path: "./Untitled",
+        uid: "new5",
+    },
+    {
+        name: "Untitled",
+        path: "./Untitled",
+        uid: "new6",
+    },
+
+    ]);
+    const [active, setActive] = useState("new");
     return {
 
         fetchFiles: async () => {
@@ -27,11 +58,13 @@ export const setupFileManager = () => {
                                         type: "file",
                                         path: "root/folder-one/folder-two/file_one_long_oeifoiejoijefoijeofijeoifjoeijfoej.txt",
                                         name: "file_one_long_oeifoiejoijefoijeofijeoifjoeijfoej.txt",
+                                        uid: 0,
                                     },
                                     {
                                         type: "file",
                                         path: "root/folder-one/folder-two/file_one.txt",
                                         name: "file_one.txt",
+                                        uid: 1,
                                     },
                                 ],
                             },
@@ -52,11 +85,13 @@ export const setupFileManager = () => {
                                 type: "file",
                                 path: "root/folder-two/file.txt",
                                 name: "file.txt",
+                                uid: 3,
                             },
                             {
                                 type: "file",
                                 path: "root/folder-two/other.txt",
                                 name: "other.txt",
+                                uid: 4,
                             },
                         ],
                     },
@@ -80,20 +115,34 @@ export const setupFileManager = () => {
                 return;
             }
             setOpenFiles([...openFiles, file]);
-            setActive(openFiles.length);
+            setActive(file.uid);
         },
         closeFile: (id) => {
-            if (id == active) {
-                setActive(Math.max(id - 1, 0));
-            }
             // set openfiles to the array without the file at position id
-            setOpenFiles(openFiles.filter((_, i) => i != id));
+            if (openFiles.length == 1) {
+                setOpenFiles([]);
+                return;
+            }
+            for (let i = 0; i < openFiles.length; i++) {
+                if (openFiles[i].uid == id) {
+                    if (i == 0)
+                        setActive(openFiles[i + 1].uid);
+                    else
+                        setActive(openFiles[i - 1].uid);
+                    break;
+                }
+            }
+            setOpenFiles(openFiles.filter((f) => {
+                return (f.uid != id)
+            }));
         },
         createNewFile: () => {
             setOpenFiles([...openFiles, {
                 name: "Untitled",
                 path: "./Untitled",
+                uid: "new",
             }]);
+            setActive("new");
         },
     };
 }
