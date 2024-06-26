@@ -2,10 +2,6 @@
     list-style: none;
 }
 
-#filetree a {
-    text-decoration: none;
-}
-
 #filetree i {
     padding: .5rem;
 }

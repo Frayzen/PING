@@ -31,6 +31,7 @@ import '../node_modules/nicescroll/jquery.nicescroll.js'
 import '../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
 import './css/fileTree.css'
 import './css/profile.css'
+import './css/global.css'
 import './index.js'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/bootstrap/dist/js/bootstrap.min.js';

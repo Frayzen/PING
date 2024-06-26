@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { FileManagerContext } from "../fileManager";
 
 
-const FileTreeElement = ({ file, onFileClick }) => {
+const FileTreeElement = ({ file }) => {
     if (file.type == "folder") {
         const [isOpen, setIsOpen] = useState(true);
         const toggle = () => {
@@ -17,7 +18,7 @@ const FileTreeElement = ({ file, onFileClick }) => {
                     {file.children.length > 0 && file.children.map((child, index) => {
                         return (
                             <li key={index}>
-                                <FileTreeElement file={child} onFileClick={onFileClick} />
+                                <FileTreeElement file={child} />
                             </li>
                         );
                     })}
@@ -26,9 +27,15 @@ const FileTreeElement = ({ file, onFileClick }) => {
             </>
         );
     }
+    const fileManager = useContext(FileManagerContext);
     return (
         <>
-            <a href="#" className="text-white" onClick={onFileClick(file.path)}>
+            <a href="#" className="text-white" onClick={() => {
+                fileManager.openFile({
+                    name: file.name,
+                    path: file.path,
+                })
+            }}>
                 <i className="fa-brands fa-java"></i>
                 {file.name}
             </a >

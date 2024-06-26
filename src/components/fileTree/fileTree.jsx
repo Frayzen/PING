@@ -29,7 +29,7 @@ const FileTree = () => {
             <ul className="ps-0">
                 <nobr>
                     <li>
-                        <FileTreeElement onFileClick={() => fileManager.openFile} file={fileTree} />
+                        <FileTreeElement file={fileTree} />
                     </li>
                 </nobr>
             </ul>

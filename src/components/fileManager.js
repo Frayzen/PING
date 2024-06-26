@@ -3,10 +3,11 @@ import { useState, createContext } from "react";
 export const setupFileManager = () => {
     const [openFiles, setOpenFiles] = useState([
         {
-            name: "Unnamed",
-            content: "Empty",
+            name: "Untitled",
+            path: "./Untitled",
         }
     ]);
+    const [active, setActive] = useState(0);
     return {
 
         fetchFiles: async () => {
@@ -67,18 +68,32 @@ export const setupFileManager = () => {
                 ],
             };
         },
+        active,
+        setActive,
         fetchFileContent: async (path) => {
+            // wait 1 second
+            await new Promise((resolve) => setTimeout(resolve, 500));
+            if (path == "./Untitled") {
+                return "";
+            }
             return "Tim is very wrong, whatever the HR manager says";
         },
         saveFileContent: async (path, content) => {
         },
         openFiles,
         openFile: (file) => {
-            console.log("OPEN")
+            if (openFiles.find((f) => f.path === file.path)) {
+                return;
+            }
             setOpenFiles([...openFiles, file]);
+            setActive(openFiles.length);
         },
-        closeFile: (file) => {
-            setOpenFiles(openFiles.filter((f) => f.path !== file.path));
+        closeFile: (id) => {
+            // remove element at position id from openFiles
+            openFiles.splice(id, 1);
+            if (active == openFiles.length)
+                setActive(openFiles.length - 1);
+            setOpenFiles([...openFiles]);
         },
     };
 }

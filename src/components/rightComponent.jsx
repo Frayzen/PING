@@ -1,13 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import AlertComponent from "./alertComponent.jsx";
 import OpenFiles from "./openFiles/openFiles.jsx";
-import { FileManagerContext } from "./fileManager.js";
 
 const RightComponent = () => {
-    const fileManager = useContext(FileManagerContext);
     return (
         <>
-            <OpenFiles files={fileManager.openFiles} />
+            <OpenFiles />
             <AlertComponent
                 title="Bootstrap"
                 time="11 mins ago"
