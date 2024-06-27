@@ -55,4 +55,3 @@ const ActivityMonitor = () => {
 };
 
 export default ActivityMonitor;
-
