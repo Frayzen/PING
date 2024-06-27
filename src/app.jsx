@@ -2,6 +2,8 @@ import React from "react";
 import RightComponent from "./components/rightComponent.jsx";
 import LeftComponent from "./components/leftComponent.jsx";
 
+import ProfileComponent from "./components/profile.jsx";
+import SearchDir from "./components/SearchDir.jsx";
 function App() {
     const { FileManagerContext, setupFileManager} = require("./components/fileManager.js");
 

@@ -4,20 +4,14 @@ import { FileManagerContext } from "../fileManager.js";
 
 const FileTree = () => {
     const fileManager = useContext(FileManagerContext);
-    const [fileTree, setFileTree] = useState(undefined);
-    useEffect(() => {
-        fileManager.fetchFiles().then((response) => {
-            setFileTree(response);
-        });
-    }, []);
     useEffect(() => {
         return () => {
             $('#filetree').niceScroll({
                 cursorborder: "1px solid #666",
             });
         };
-    }, [fileTree]);
-    if (fileTree == undefined) {
+    }, [fileManager.fileTree]);
+    if (fileManager.fileTree == null) {
         return (
             <div className="spinner-border text-secondary mx-auto my-2" role="status">
                 <span className="visually-hidden">Loading...</span>
@@ -29,7 +23,7 @@ const FileTree = () => {
             <ul className="ps-0">
                 <nobr>
                     <li>
-                        <FileTreeElement file={fileTree} />
+                        <FileTreeElement file={fileManager.fileTree} />
                     </li>
                 </nobr>
             </ul>

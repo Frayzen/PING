@@ -34,12 +34,14 @@ export const setupFileManager = () => {
 
     ]);
     const [active, setActive] = useState("new");
+    const [fileTree, setFileTree] = useState(null);
+    const [root, setRoot] = useState(null);
     return {
 
         fetchFiles: async () => {
             // wait 1 second
-            await new Promise((resolve) => setTimeout(resolve, 500));
-            return {
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            const val = {
                 type: "folder",
                 name: "root",
                 path: "root",
@@ -49,6 +51,12 @@ export const setupFileManager = () => {
                         name: "folder-one",
                         path: "root/folder-one",
                         children: [
+                            {
+                                type: "file",
+                                path: "root/xxx",
+                                name: "xxx",
+                                uid: 9,
+                            },
                             {
                                 type: "folder",
                                 name: "folder-two",
@@ -97,9 +105,14 @@ export const setupFileManager = () => {
                     },
                 ],
             };
+            return val;
         },
+        setFileTree,
+        fileTree,
         active,
         setActive,
+        root,
+        setRoot,
         fetchFileContent: async (path) => {
             // wait 1 second
             await new Promise((resolve) => setTimeout(resolve, 500));
