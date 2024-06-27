@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import FileOpenText from "./fileOpenText.jsx";
 import TabListItem from "./tabListItem.jsx";
-import { FileManagerContext } from "../../managers/fileManager.js";
+import { FileManagerContext } from "../../../managers/fileManager.js";
 
 const OpenFiles = () => {
     const fileManager = useContext(FileManagerContext);

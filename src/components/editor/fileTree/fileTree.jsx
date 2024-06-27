@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import FileTreeElement from "./fileTreeElement.jsx";
-import { FileManagerContext } from "../../managers/fileManager.js";
+import { FileManagerContext } from "../../../managers/fileManager.js";
 
 const FileTree = ({ searchString }) => {
     const fileManager = useContext(FileManagerContext);

@@ -1,12 +1,22 @@
 {
     "compilerOptions": {
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true,
         "moduleResolution": "node",
         "target": "es6",
         "module": "esnext",
         "jsx": "react",
         "checkJs": true,
         "esModuleInterop": true,
-        "noImplicitAny": false
+        "noImplicitAny": false,
+        "resolve": {
+            "extensions": [
+                ".js",
+                ".jsx",
+                ".ts",
+                ".tsx"
+            ]
+        }
     },
     "baseUrl": "./src/",
     "paths": {
