@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import MessagePopup from './popup/MessagePopup.jsx'; // Adjust path as per your file structure
+import MessagePopup from './popup/MessagePopup.jsx';    
 
-const ActivityMonitor = () => {
+const ActivityMonitor = ({ onActivityChange }) => {
     const [showPopup, setShowPopup] = useState(false);
-
     const inactiveTimeoutRef = useRef(null);
 
     useEffect(() => {
@@ -13,29 +12,32 @@ const ActivityMonitor = () => {
             }
 
             inactiveTimeoutRef.current = setTimeout(() => {
-                setShowPopup(true); // Show popup after 5 seconds of inactivity
+                setShowPopup(true); // Show popup after 2 seconds of inactivity
+                onActivityChange(false);
             }, 2000);
         };
 
         const handleActivity = () => {
             setShowPopup(false); // Hide popup on activity
+            onActivityChange(true);
             resetTimer();
         };
 
         document.addEventListener('mousemove', handleActivity);
         document.addEventListener('keypress', handleActivity);
+        document.addEventListener('click', handleActivity); // Add click event listener
         resetTimer();
 
         return () => {
             document.removeEventListener('mousemove', handleActivity);
             document.removeEventListener('keypress', handleActivity);
-            document.addEventListener('click', handleActivity); // Add click event listener
+            document.removeEventListener('click', handleActivity);
 
             if (inactiveTimeoutRef.current) {
                 clearTimeout(inactiveTimeoutRef.current);
             }
         };
-    }, []);
+    }, [onActivityChange]);
 
     const handleClosePopup = () => {
         setShowPopup(false);
@@ -55,3 +57,4 @@ const ActivityMonitor = () => {
 };
 
 export default ActivityMonitor;
+

@@ -9,7 +9,6 @@ function App() {
 <div className="container-fluid bg-light-subtle min-vh-100 min-vw-100 p-0 d-flex">
             <div className="col-3 bg-body-secondary">
                 <LeftComponent />
-        <ActivityMonitor />
             </div>
             <div className="w-100 bg-body-tertiary">
                 <RightComponent />
