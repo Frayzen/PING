@@ -35,7 +35,6 @@ export const setupFileManager = () => {
     ]);
     const [active, setActive] = useState("new");
     const [fileTree, setFileTree] = useState(null);
-    const [root, setRoot] = useState(null);
     return {
 
         fetchFiles: async () => {
@@ -111,8 +110,6 @@ export const setupFileManager = () => {
         fileTree,
         active,
         setActive,
-        root,
-        setRoot,
         fetchFileContent: async (path) => {
             // wait 1 second
             await new Promise((resolve) => setTimeout(resolve, 500));

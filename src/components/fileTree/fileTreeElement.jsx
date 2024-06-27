@@ -2,12 +2,24 @@ import React, { useState, useContext } from "react";
 import { FileManagerContext } from "../fileManager";
 
 
-const FileTreeElement = ({ file }) => {
+const FileTreeElement = ({ file, searchString }) => {
     if (file.type == "folder") {
         const [isOpen, setIsOpen] = useState(true);
         const toggle = () => {
             setIsOpen(!isOpen);
         };
+        if (searchString.length == 0 || file.name.toLowerCase().includes(searchString.toLowerCase()))
+            searchString = "";
+        let children = file.children.map((child) => {
+            let elem = FileTreeElement({ file: child, searchString: searchString });
+            if (elem == null)
+                return null;
+            return <FileTreeElement file={child} searchString={searchString} />;
+        }).filter(e => {
+            return e != null
+        });
+        if (children.length == 0 && !file.name.toLowerCase().includes(searchString.toLowerCase()))
+            return null;
         return (
             <>
                 <a href="#" onClick={toggle} className="text-white">
@@ -15,10 +27,10 @@ const FileTreeElement = ({ file }) => {
                     {file.name}
                 </a>
                 <ul className={isOpen ? "" : "d-none"}>
-                    {file.children.length > 0 && file.children.map((child, index) => {
+                    {children.length > 0 && children.map((child, index) => {
                         return (
                             <li key={index}>
-                                <FileTreeElement file={child} />
+                                {child}
                             </li>
                         );
                     })}
@@ -27,6 +39,9 @@ const FileTreeElement = ({ file }) => {
             </>
         );
     }
+
+    if (!file.name.toLowerCase().includes(searchString.toLowerCase()))
+        return null;
     const fileManager = useContext(FileManagerContext);
     return (
         <>

@@ -2,8 +2,12 @@ import React, { useState, useEffect, useContext } from "react";
 import FileTreeElement from "./fileTreeElement.jsx";
 import { FileManagerContext } from "../fileManager.js";
 
-const FileTree = () => {
+const FileTree = ({ searchString }) => {
     const fileManager = useContext(FileManagerContext);
+    if (fileManager.fileTree == null)
+        fileManager.fetchFiles().then((tree) => {
+            fileManager.setFileTree(tree);
+        });
     useEffect(() => {
         return () => {
             $('#filetree').niceScroll({
@@ -23,7 +27,7 @@ const FileTree = () => {
             <ul className="ps-0">
                 <nobr>
                     <li>
-                        <FileTreeElement file={fileManager.fileTree} />
+                        <FileTreeElement searchString={searchString} file={fileManager.fileTree} />
                     </li>
                 </nobr>
             </ul>
