@@ -4,17 +4,23 @@ import ActivityMonitor from "./activityComponent.jsx"; // Adjust path as per you
 
 const Profile = () => {
     const [xpBoost, setXpBoost] = useState(0);
-    const [progress, setProgress] = useState(75); // Initial progress value
+    const [progress, setProgress] = useState(0); // Initial progress value
 
-    const handleActivityChange = (isActive) => {
-        var newBoost = adjustBoost(xpBoost, 1, isActive);
+    const updateBoost = (inc) => {
+        var newBoost = adjustBoost(xpBoost, 1, inc);
         setProgress(prevProgress => Math.min(prevProgress + newBoost, 100));
         setXpBoost(newBoost);
     };
 
     useEffect(() => {
-        // setProgress(prevProgress => Math.min(prevProgress * xpBoost, 100));
+        const interval = setInterval(() => {
+            setProgress(progress => Math.min(progress + xpBoost, 100));
+            console.log("progress = " + progress);
+        }, 2000);
+
+        return () => clearInterval(interval);
     }, [xpBoost]);
+
     return (
         <>
             <div id="profile" className="m-4 d-flex align-items-center">
@@ -28,11 +34,12 @@ const Profile = () => {
                     </div>
                 </div>
             </div>
-            <ActivityMonitor onActivityChange={handleActivityChange} />
+            <ActivityMonitor
+                updateBoost={updateBoost}
+            />
         </>
     );
-
-}
+};
 
 export default Profile;
 
