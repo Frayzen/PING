@@ -46,8 +46,6 @@ const ActivityMonitor = ({ onActivityChange }) => {
 
     return (
         <div>
-            <div>Activity Monitor</div>
-            <div>Current status: {isActive ? 'ACTIVE' : 'INACTIVE'}</div>
         </div>
     );
 };
