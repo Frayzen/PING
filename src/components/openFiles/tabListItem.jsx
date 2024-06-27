@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { FileManagerContext } from "../fileManager.js";
+import { FileManagerContext } from "../../managers/fileManager";
 const FileOpenText = ({ file }) => {
     const fileManager = useContext(FileManagerContext);
     const id = file.uid;

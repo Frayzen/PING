@@ -1,13 +1,14 @@
 import React, { useContext, useEffect } from "react";
-import { FileManagerContext } from "../fileManager.js";
 import FileOpenText from "./fileOpenText.jsx";
 import TabListItem from "./tabListItem.jsx";
+import { FileManagerContext } from "../../managers/fileManager.js";
 
 const OpenFiles = () => {
     const fileManager = useContext(FileManagerContext);
     if (fileManager.openFiles.length == 0)
         fileManager.createNewFile();
     useEffect(() => {
+        // @ts-ignore
         $('#fileTabs').niceScroll({
             cursorborder: "1px solid #666",
         });

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { FileManagerContext } from "../fileManager.js";
+import { FileManagerContext } from "../../managers/fileManager";
 const FileOpenText = ({ file }) => {
     const [loading, isLoading] = useState(true);
     const fileManager = useContext(FileManagerContext);

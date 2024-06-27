@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { FileManagerContext } from "../fileManager";
+import { FileManagerContext } from "../../managers/fileManager";
 
 
 const FileTreeElement = ({ file, searchString }) => {

@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import FileTreeElement from "./fileTreeElement.jsx";
-import { FileManagerContext } from "../fileManager.js";
+import { FileManagerContext } from "../../managers/fileManager.js";
 
 const FileTree = ({ searchString }) => {
     const fileManager = useContext(FileManagerContext);
@@ -10,6 +10,7 @@ const FileTree = ({ searchString }) => {
         });
     useEffect(() => {
         return () => {
+            // @ts-ignore
             $('#filetree').niceScroll({
                 cursorborder: "1px solid #666",
             });

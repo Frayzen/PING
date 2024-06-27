@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 const Profile = () => {
+    useEffect(() => {
+        return async () => {
+            // wait 1sec
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            const profilePicture = document.getElementById('profile-picture');
+            profilePicture.style.backgroundImage = `url('http://via.placeholder.com/200x200')`;
+        }
+    }, []);
     return (
         <>
             <div id="profile" className="mx-4">

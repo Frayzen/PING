@@ -7,9 +7,8 @@
 
 #profile-picture {
     max-width: 8rem;
-    aspect-ratio : 1 / 1;
-    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-        url("../media/images/sloth.png");
+    aspect-ratio: 1 / 1;
+    background: url("../media/images/sloth.png");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;

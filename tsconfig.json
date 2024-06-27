@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "moduleResolution": "node",
+        "target": "es6",
+        "module": "esnext",
+        "jsx": "react",
+        "checkJs": true,
+        "esModuleInterop": true,
+        "noImplicitAny": false
+    },
+    "baseUrl": "./src/",
+    "paths": {
+        "@/*": [
+            "src/*"
+        ]
+    },
+    "include": [
+        "src/**/*.js",
+        "src/**/*.jsx",
+        "src/**/*.ts",
+        "src/**/*.tsx"
+    ]
+}
