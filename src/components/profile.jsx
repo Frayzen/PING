@@ -1,4 +1,5 @@
 import React from "react";
+import { adjustStats } from "../backend/stats";
 
 const Profile = () => {
     return (
