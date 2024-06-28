@@ -9,11 +9,9 @@ function App() {
 
     return (
         <ProjectManagerContext.Provider value={setupProjectManager()}>
-            <FileManagerContext.Provider value={setupFileManager()}>
-                <div className="container-fluid bg-light-subtle min-vh-100 min-vw-100 p-0 d-flex">
-                    <IDE />
-                </div>
-            </FileManagerContext.Provider>
+            <div className="container-fluid bg-light-subtle min-vh-100 min-vw-100 p-0 d-flex">
+                <IDE />
+            </div>
         </ProjectManagerContext.Provider>
     );
 }

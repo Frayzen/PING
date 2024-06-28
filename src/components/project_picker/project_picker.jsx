@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ProjectManagerContext } from "../../managers/projectManager";
+import * as bootstrap from "bootstrap";
+import { Toast, TOAST_STATUS } from "bootstrap-toaster";
+
 
 const ProjectPicker = () => {
+    const projectManager = useContext(ProjectManagerContext);
     return (
         <div className="m-auto col-md-6 col-lg-4 col-xl-3">
             <div className="card text-center w-100 p-4">
@@ -17,7 +22,18 @@ const ProjectPicker = () => {
                     <a onClick={
                         () => {
                             window.api.getProjectPath().then((path) => {
-                                console.log(path);
+                                if (path != undefined)
+                                    projectManager.setCurrent(path);
+                                else {
+                                    Toast.create({
+                                        title: "Invalid path",
+                                        message: "Please provide a valid path",
+                                        status: TOAST_STATUS.DANGER,
+                                        timeout: 1000
+                                    })
+                                }
+
+
                             });
                         }
                     } href="#" className="btn btn-primary btn-lg">Open a new project</a>

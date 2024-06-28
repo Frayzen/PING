@@ -4,12 +4,12 @@ import { FileManagerContext } from "../../../managers/fileManager.js";
 
 const FileTree = ({ searchString }) => {
     const fileManager = useContext(FileManagerContext);
-    if (fileManager.fileTree == null)
-        fileManager.fetchFiles().then((tree) => {
-            fileManager.setFileTree(tree);
-        });
     useEffect(() => {
         return () => {
+            if (fileManager.fileTree == null)
+                fileManager.fetchFiles().then((tree) => {
+                    fileManager.setFileTree(tree);
+                });
             // @ts-ignore
             $('#filetree').niceScroll({
                 cursorborder: "1px solid #666",

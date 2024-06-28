@@ -27,6 +27,7 @@
  */
 
 window.$ = window.jQuery = require('jquery');
+window.bootstrap = require('bootstrap/dist/js/bootstrap.bundle.js');
 import '../node_modules/nicescroll/jquery.nicescroll.js'
 import '../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
 import './css/fileTree.css'
@@ -36,3 +37,6 @@ import './index.js'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/bootstrap/dist/js/bootstrap.min.js';
 
+import { Toast, TOAST_STATUS, TOAST_PLACEMENT } from "bootstrap-toaster";
+Toast.setPlacement(TOAST_PLACEMENT.BOTTOM_RIGHT)
+Toast.enableQueue(true)

@@ -13,7 +13,5 @@ const defineEndpoints = (endpoints) => {
 }
 
 const endpoints = ipcRenderer.sendSync('fetchEndpoints');
-console.log(endpoints);
 const endpointsObject = defineEndpoints(endpoints);
-console.log(endpointsObject);
 contextBridge.exposeInMainWorld('api', endpointsObject);

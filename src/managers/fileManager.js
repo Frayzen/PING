@@ -1,127 +1,30 @@
 import { useState, createContext } from "react";
 
-export const setupFileManager = () => {
-    const [openFiles, setOpenFiles] = useState([{
-        name: "Untitled",
-        path: "./Untitled",
-        uid: "new",
-    },
-    {
-        name: "Untitled",
-        path: "./Untitled",
-        uid: "new2",
-    },
-    {
-        name: "Untitled",
-        path: "./Untitled",
-        uid: "new3",
-    },
-    {
-        name: "Untitled",
-        path: "./Untitled",
-        uid: "new4",
-    },
-    {
-        name: "Untitled",
-        path: "./Untitled",
-        uid: "new5",
-    },
-    {
-        name: "Untitled",
-        path: "./Untitled",
-        uid: "new6",
-    },
-
-    ]);
-    const [active, setActive] = useState("new");
+export const setupFileManager = (curPath) => {
+    const [openFiles, setOpenFiles] = useState([]);
+    const [active, setActive] = useState("");
     const [fileTree, setFileTree] = useState(null);
     return {
-
-        fetchFiles: async () => {
-            // wait 1 second
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-            const val = {
-                type: "folder",
-                name: "root",
-                path: "root",
-                children: [
-                    {
-                        type: "folder",
-                        name: "folder-one",
-                        path: "root/folder-one",
-                        children: [
-                            {
-                                type: "file",
-                                path: "root/xxx",
-                                name: "xxx",
-                                uid: 9,
-                            },
-                            {
-                                type: "folder",
-                                name: "folder-two",
-                                path: "root/folder-one/folder-two",
-                                children: [
-                                    {
-                                        type: "file",
-                                        path: "root/folder-one/folder-two/file_one_long_oeifoiejoijefoijeofijeoifjoeijfoej.txt",
-                                        name: "file_one_long_oeifoiejoijefoijeofijeoifjoeijfoej.txt",
-                                        uid: 0,
-                                    },
-                                    {
-                                        type: "file",
-                                        path: "root/folder-one/folder-two/file_one.txt",
-                                        name: "file_one.txt",
-                                        uid: 1,
-                                    },
-                                ],
-                            },
-                        ],
-                    },
-                    {
-                        type: "folder",
-                        name: "folder-two",
-                        path: "root/folder-two",
-                        children: [
-                            {
-                                type: "folder",
-                                name: "folder-three",
-                                path: "root/folder-two/folder-three",
-                                children: [],
-                            },
-                            {
-                                type: "file",
-                                path: "root/folder-two/file.txt",
-                                name: "file.txt",
-                                uid: 3,
-                            },
-                            {
-                                type: "file",
-                                path: "root/folder-two/other.txt",
-                                name: "other.txt",
-                                uid: 4,
-                            },
-                        ],
-                    },
-                ],
-            };
-            return val;
-        },
         setFileTree,
         fileTree,
         active,
         setActive,
+        openFiles,
+        fetchFiles: async () => {
+            console.log(curPath);
+            const files = await window.api.fetchFiles(curPath);
+            console.log(files);
+            return files
+        },
         fetchFileContent: async (path) => {
-            // wait 1 second
-            await new Promise((resolve) => setTimeout(resolve, 500));
-            if (path == "./Untitled")
-                return "";
-            return "Tim is very wrong, whatever the HR manager says";
+            return await window.api.fetchFileContent(path);
         },
         saveFileContent: async (path, content) => {
         },
-        openFiles,
         openFile: (file) => {
-            if (openFiles.find((f) => f.path === file.path)) {
+            const exist = openFiles.find((f) => f.uid === file.uid);
+            if (exist) {
+                setActive(exist.uid);
                 return;
             }
             setOpenFiles([...openFiles, file]);
@@ -145,14 +48,6 @@ export const setupFileManager = () => {
             setOpenFiles(openFiles.filter((f) => {
                 return (f.uid != id)
             }));
-        },
-        createNewFile: () => {
-            setOpenFiles([...openFiles, {
-                name: "Untitled",
-                path: "./Untitled",
-                uid: "new",
-            }]);
-            setActive("new");
         },
     };
 }

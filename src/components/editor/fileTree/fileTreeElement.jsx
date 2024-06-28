@@ -3,6 +3,7 @@ import { FileManagerContext } from "../../../managers/fileManager";
 
 
 const FileTreeElement = ({ file, searchString }) => {
+    console.log(file);
     if (file.type == "folder") {
         const [isOpen, setIsOpen] = useState(true);
         const toggle = () => {

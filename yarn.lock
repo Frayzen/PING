@@ -1511,7 +1511,20 @@ boolean@^3.0.1:
   resolved "https://registry.npmjs.org/boolean/-/boolean-3.2.0.tgz"
   integrity sha512-d0II/GO9uf9lfUHH2BQsjxzRJZBdsjgsBiW4BvhWk/3qoKwQFjIDVN19PfX8F2D/r9PCMTtLWjYVCFrpeYUzsw==
 
-bootstrap@^5.3.3:
+bootstrap-icons@>=1.4.0:
+  version "1.11.3"
+  resolved "https://registry.npmjs.org/bootstrap-icons/-/bootstrap-icons-1.11.3.tgz"
+  integrity sha512-+3lpHrCw/it2/7lBL15VR0HEumaBss0+f/Lb6ZvHISn1mlK83jjFpooTLsMWbIjJMDjDjOExMsTxnXSIT4k4ww==
+
+bootstrap-toaster@^5.2.0-beta1.1:
+  version "5.2.0-beta1.1"
+  resolved "https://registry.npmjs.org/bootstrap-toaster/-/bootstrap-toaster-5.2.0-beta1.1.tgz"
+  integrity sha512-yHL/FKKzO5M60I653ufV+G2Mw9Gow/celsSPRRhKNMYuABAfv81nLXi+CaI9XVX1EI5hMzb60Kbh39Fl1FypOw==
+  dependencies:
+    bootstrap ">=5.0.0"
+    bootstrap-icons ">=1.4.0"
+
+bootstrap@^5.3.3, bootstrap@>=5.0.0:
   version "5.3.3"
   resolved "https://registry.npmjs.org/bootstrap/-/bootstrap-5.3.3.tgz"
   integrity sha512-8HLCdWgyoMguSO9o+aH+iuZ+aht+mzW0u3HIMzVu7Srrpv7EBBxTnrFlSCskwdY1+EOFQSm7uMJhNQHkdPcmjg==

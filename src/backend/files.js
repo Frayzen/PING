@@ -2,6 +2,9 @@ const fs = require('fs');
 const path = require('path');
 const { dialog } = require('electron');
 
+const randomUID = () => {
+    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+}
 
 const isDirectory = (filePath) => {
     try {
@@ -30,13 +33,17 @@ const endpoints = {
             properties: ['openDirectory'],
             title: 'Select a project folder',
         });
-        return result;
+        return result[0];
     },
 
-    getFilesJson: (dirPath, pattern = '') => {
+    fetchFileContent: (path) => {
+        return fs.readFileSync(path, 'utf8');
+    },
+
+    fetchFiles: (dirPath, pattern = '') => {
         try {
             const filesJson = [];
-            const buildFilesJson = (currentDirPath, json) => {
+            const buildFiles = (currentDirPath, list) => {
                 const files = fs.readdirSync(currentDirPath);
                 files.forEach(file => {
                     const filePath = path.join(currentDirPath, file);
@@ -51,23 +58,29 @@ const endpoints = {
                                 path: filePath,
                                 children: []
                             };
-                            json.push(folderObject);
-                            buildFilesJson(filePath, folderObject.children);
+                            list.push(folderObject);
+                            buildFiles(filePath, folderObject.children);
                         }
                     } else {
                         if (file.startsWith(pattern)) {
                             const fileObject = {
                                 name: fileName,
                                 type: 'file',
-                                path: filePath
+                                path: filePath,
+                                uid: randomUID()
                             };
-                            json.push(fileObject);
+                            list.push(fileObject);
                         }
                     }
                 });
             }
-            buildFilesJson(dirPath, filesJson);
-            return JSON.stringify(filesJson, null, 2);
+            buildFiles(dirPath, filesJson);
+            return {
+                name: path.basename(dirPath),
+                type: 'folder',
+                children: filesJson,
+                uid: randomUID()
+            }
         } catch (err) {
             console.error(`Error building files JSON for path ${dirPath}:`, err);
             return null;
