@@ -1,28 +1,47 @@
 import React, { useEffect } from "react";
-import img from '../../public/armadillo.png';
+import armadillo from '../../public/armadillo.png';
+import chief from '../../public/chief.png';
+import fatcheetah from '../../public/fatcheetah.png';
+import florian from '../../public/florian.png';
+import snoop from '../../public/snoop.png';
+import rabbit from '../../public/rabbit.png';
+import sloth from '../../public/sloth.png';
+
+import { ActivityManager } from "../managers/activityManager.js";
 
 const Profile = () => {
+    const activityManager = React.useContext(ActivityManager);
     useEffect(() => {
         return async () => {
-            // wait 1sec
-            await new Promise(resolve => setTimeout(resolve, 2000));
+            var imgs = [sloth, snoop, fatcheetah, florian, chief, rabbit];
             const profilePicture = document.getElementById('profile-picture');
-            profilePicture.style.backgroundImage = `url(${img})` ;        }
-    }, []);
+            let i = (activityManager.xp - (activityManager.xp % 100) ) /100;
+            profilePicture.style.backgroundImage = `url(${imgs[i % imgs.length]})`;
+        }
+    }, [activityManager.xp]);
+
     return (
-            <div id="profile" className="mx-4 w-100">
-                <div className="d-flex align-items-center">
-                    <div id="profile-picture" className="col-5 rounded-circle bg-dark me-auto my-1"></div>
-                    <div className="mx-0 mr-auto w-auto">
-                        <h5 className="card-title">Sloth</h5>
-                        <hr className="my-1"></hr>
-                        <span className="badge text-bg-secondary">Level 53</span>
+        <>
+            <div id="profile" className="m-4 d-flex align-items-center">
+                <div id="profile-picture" className="rounded-circle bg-dark me-3" style={{
+                }}></div>
+                <div className="flex-grow-1">
+                    <div className="progress border" role="progressbar" aria-label="Basic example" aria-valuenow={activityManager.xp} aria-valuemin="0" aria-valuemax="100">
+                        <div className="progress-bar bg-danger" style={{
+                            width: (activityManager.xp % 100) + '%',
+                        }}></div>
+                    </div>
+                    <div className="mt-1">
+                        {activityManager.xpBoost >= 1 && (
+                            <p className="mb-0">XP Boost: x{activityManager.xpBoost}</p>
+                        )}
+                        {activityManager.xpBoost < 1 && (
+                            <span class="badge text-bg-danger">Inactive</span>
+                        )}
                     </div>
                 </div>
-                <div className="progress border" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                    <div className="progress-bar bg-white" style={{ width: 75 + '%' }}></div>
-                </div>
             </div>
+        </>
     );
 }
 
