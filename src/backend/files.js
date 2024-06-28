@@ -36,6 +36,42 @@ const endpoints = {
         return result ? result[0] : undefined;
     },
 
+    deleteFile: (path) => {
+        if (!fs.existsSync(path))
+            return false;
+        if (fs.lstatSync(path).isDirectory())
+            fs.rmdirSync(path, { recursive: true });
+        else
+            fs.unlinkSync(path);
+        return true;
+    },
+
+    createFile: (path) => {
+        try {
+            if (path.endsWith("/")) {
+                fs.mkdirSync(path);
+                return {
+                    name: path.split("/").pop(),
+                    type: "folder",
+                    path: path,
+                    children: [],
+                };
+            }
+            else {
+                fs.writeFileSync(path, "");
+                return {
+                    name: path.split("/").pop(),
+                    type: "file",
+                    path: path,
+                    uid: randomUID()
+                };
+            }
+        } catch (err) {
+            console.error(`Error creating file ${path}:`, err);
+            return false;
+        }
+    },
+
     fetchFileContent: (path) => {
         return fs.readFileSync(path, 'utf8');
     },
@@ -78,6 +114,7 @@ const endpoints = {
             return {
                 name: path.basename(dirPath),
                 type: 'folder',
+                path: dirPath,
                 children: filesJson,
                 uid: randomUID()
             }

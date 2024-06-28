@@ -43,6 +43,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/vue-fontawesome": "^3.0.8",
     "@types/jquery": "^3.5.30",
+    "bootbox": "^6.0.0",
     "bootstrap": "^5.3.3",
     "bootstrap-toaster": "^5.2.0-beta1.1",
     "electron-squirrel-startup": "^1.0.1",
@@ -52,6 +53,7 @@
     "nicescroll": "^3.7.4",
     "path": "^0.12.7",
     "react": "^18.3.1",
+    "react-bootstrap": "^2.10.3",
     "react-dom": "^18.3.1",
     "react-folder-tree": "^5.1.1"
   }

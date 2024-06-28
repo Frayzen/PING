@@ -1,5 +1,6 @@
 import { useState, createContext, useContext, useEffect } from "react";
 import { ProjectManagerContext } from "./projectManager";
+import bootbox from "bootbox";
 
 export const setupFileManager = (curPath) => {
     const [openFiles, setOpenFiles] = useState([]);
@@ -13,6 +14,30 @@ export const setupFileManager = (curPath) => {
         setOpenFiles([]);
     }, [projectManager.current]);
 
+    const openFile = (file) => {
+        const exist = openFiles.find((f) => f.uid === file.uid);
+        if (exist) {
+            setActive(exist.uid);
+            return;
+        }
+        setOpenFiles([...openFiles, file]);
+        setActive(file.uid);
+    }
+    const closeFile = (id) => {
+        // set openfiles to the array without the file at position id
+        if (active == id)
+            for (let i = 0; i < openFiles.length; i++)
+                if (openFiles[i].uid == id) {
+                    if (i == 0)
+                        setActive(openFiles[i + 1].uid);
+                    else
+                        setActive(openFiles[i - 1].uid);
+                    break;
+                }
+        setOpenFiles(openFiles.filter((f) => {
+            return (f.uid != id)
+        }));
+    }
     return {
         setFileTree,
         fileTree,
@@ -30,33 +55,43 @@ export const setupFileManager = (curPath) => {
         },
         saveFileContent: async (path, content) => {
         },
-        openFile: (file) => {
-            const exist = openFiles.find((f) => f.uid === file.uid);
-            if (exist) {
-                setActive(exist.uid);
-                return;
-            }
-            setOpenFiles([...openFiles, file]);
-            setActive(file.uid);
+        openFile,
+        closeFile,
+        deleteFile: async (file) => {
+            const path = file.path;
+            const result = bootbox.confirm({
+                title: "Are you sure?",
+                message: "This will delete the " + file.type + " " + path,
+                centerVertical: true,
+                callback: async (result) => {
+                    if (result) {
+                        const deleted = await window.api.deleteFile(path);
+                        if (deleted) {
+                            closeFile(file.uid);
+                        }
+                    }
+                },
+            });
         },
-        closeFile: (id) => {
-            // set openfiles to the array without the file at position id
-            if (openFiles.length == 1) {
-                setOpenFiles([]);
-                return;
-            }
-            for (let i = 0; i < openFiles.length; i++) {
-                if (openFiles[i].uid == id) {
-                    if (i == 0)
-                        setActive(openFiles[i + 1].uid);
-                    else
-                        setActive(openFiles[i - 1].uid);
-                    break;
+        createFile: async (folder) => {
+            const name = bootbox.prompt({
+                title: "Name of the file",
+                centerVertical: true,
+                callback: async (result) => {
+                    if (name == null || name.length == 0)
+                        return false;
+                    console.log(folder.path + "/" + result)
+                    const newPath = (folder.path + "/" + result).replace(/\/+/, "/");
+                    const newFile = await window.api.createFile(newPath)
+                    console.log(newFile)
+                    if (newFile) {
+                        folder.children.push(newFile);
+                        setFileTree(fileTree);
+                        if (newFile.type == "file")
+                            openFile(newFile);
+                    }
                 }
-            }
-            setOpenFiles(openFiles.filter((f) => {
-                return (f.uid != id)
-            }));
+            });
         },
     };
 }
