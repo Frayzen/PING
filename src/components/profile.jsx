@@ -7,9 +7,7 @@ const Profile = () => {
             // wait 1sec
             await new Promise(resolve => setTimeout(resolve, 2000));
             const profilePicture = document.getElementById('profile-picture');
-            profilePicture.style.backgroundImage = `url('public/armadillo.png')`;
-            console.log(profilePicture);
-        }
+            profilePicture.style.backgroundImage = `url(${img})` ;        }
     }, []);
     return (
             <div id="profile" className="mx-4 w-100">
