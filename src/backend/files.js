@@ -79,7 +79,7 @@ const endpoints = {
     fetchFiles: (dirPath, pattern = '') => {
         try {
             const filesJson = [];
-            const buildFiles = (currentDirPath, list) => {
+            const buildFiles = (parent, currentDirPath, list) => {
                 const files = fs.readdirSync(currentDirPath);
                 files.forEach(file => {
                     const filePath = path.join(currentDirPath, file);
@@ -92,10 +92,11 @@ const endpoints = {
                                 name: fileName,
                                 type: 'folder',
                                 path: filePath,
+                                parent: parent,
                                 children: []
                             };
                             list.push(folderObject);
-                            buildFiles(filePath, folderObject.children);
+                            buildFiles(folderObject, filePath, folderObject.children);
                         }
                     } else {
                         if (file.startsWith(pattern)) {
@@ -103,6 +104,7 @@ const endpoints = {
                                 name: fileName,
                                 type: 'file',
                                 path: filePath,
+                                parent: parent,
                                 uid: randomUID()
                             };
                             list.push(fileObject);
@@ -110,14 +112,15 @@ const endpoints = {
                     }
                 });
             }
-            buildFiles(dirPath, filesJson);
-            return {
+            const base = {
                 name: path.basename(dirPath),
                 type: 'folder',
                 path: dirPath,
-                children: filesJson,
                 uid: randomUID()
-            }
+            };
+            buildFiles(base, dirPath, filesJson);
+            base.children = filesJson;
+            return base;
         } catch (err) {
             console.error(`Error building files JSON for path ${dirPath}:`, err);
             return null;

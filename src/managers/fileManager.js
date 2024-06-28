@@ -25,7 +25,7 @@ export const setupFileManager = (curPath) => {
     }
     const closeFile = (id) => {
         // set openfiles to the array without the file at position id
-        if (active == id)
+        if (active == id && openFiles.length > 1)
             for (let i = 0; i < openFiles.length; i++)
                 if (openFiles[i].uid == id) {
                     if (i == 0)
@@ -68,6 +68,10 @@ export const setupFileManager = (curPath) => {
                         const deleted = await window.api.deleteFile(path);
                         if (deleted) {
                             closeFile(file.uid);
+                            file.parent.children = file.parent.children.filter((f) => {
+                                return (f.uid != file.uid)
+                            });
+                            setFileTree(fileTree);
                         }
                     }
                 },
