@@ -9,3 +9,6 @@ contextBridge.exposeInMainWorld('api', {
 contextBridge.exposeInMainWorld('electronAPI', {
   fetchTree: (path) => ipcRenderer.send('fetch-tree', path)
 })
+contextBridge.exposeInMainWorld('electronAPI', {
+  fetchTree: (path) => ipcRenderer.send('delete-file', path)
+})
