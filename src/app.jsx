@@ -2,6 +2,7 @@ import React from "react";
 import RightComponent from "./components/editor/rightComponent.jsx";
 import LeftComponent from "./components/editor/leftComponent.jsx";
 import IDE from "./components/ide.jsx";
+import ShortcutHandler from "./components/shortcut_component.jsx";
 
 function App() {
     const { FileManagerContext, setupFileManager } = require("./managers/fileManager.js");
@@ -9,8 +10,12 @@ function App() {
 
     return (
         <ProjectManagerContext.Provider value={setupProjectManager()}>
-            <div className="container-fluid bg-light-subtle min-vh-100 min-vw-100 p-0 d-flex">
+            <div className="container-fluid bg-light-subtle min-vh-100 d-flex p-0" style={{
+                width: "100vw",
+                height: "100vh",
+            }}>
                 <IDE />
+                <ShortcutHandler />
             </div>
         </ProjectManagerContext.Provider>
     );

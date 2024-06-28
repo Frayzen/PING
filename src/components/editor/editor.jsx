@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import LeftComponent from "./leftComponent.jsx";
 import RightComponent from "./rightComponent.jsx";
 import { ProjectManagerContext } from "../../managers/projectManager.js";

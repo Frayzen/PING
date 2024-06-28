@@ -10,8 +10,7 @@ const Profile = () => {
         }
     }, []);
     return (
-        <>
-            <div id="profile" className="mx-4">
+            <div id="profile" className="mx-4 w-100">
                 <div className="d-flex align-items-center">
                     <div id="profile-picture" className="col-5 rounded-circle bg-dark me-auto my-1"></div>
                     <div className="mx-0 mr-auto w-auto">
@@ -24,7 +23,6 @@ const Profile = () => {
                     <div className="progress-bar bg-white" style={{ width: 75 + '%' }}></div>
                 </div>
             </div>
-        </>
     );
 }
 

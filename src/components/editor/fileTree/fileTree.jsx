@@ -5,11 +5,11 @@ import { FileManagerContext } from "../../../managers/fileManager.js";
 const FileTree = ({ searchString }) => {
     const fileManager = useContext(FileManagerContext);
     useEffect(() => {
+        if (fileManager.fileTree == null)
+            fileManager.fetchFiles().then((tree) => {
+                fileManager.setFileTree(tree);
+            });
         return () => {
-            if (fileManager.fileTree == null)
-                fileManager.fetchFiles().then((tree) => {
-                    fileManager.setFileTree(tree);
-                });
             // @ts-ignore
             $('#filetree').niceScroll({
                 cursorborder: "1px solid #666",
@@ -24,15 +24,13 @@ const FileTree = ({ searchString }) => {
         );
     }
     return (
-        <div className="overflow-x-hidden mx-1 h-100 my-2" id="filetree">
-            <ul className="ps-0">
-                <nobr>
-                    <li>
-                        <FileTreeElement searchString={searchString} file={fileManager.fileTree} />
-                    </li>
-                </nobr>
-            </ul>
-        </div>
+        <ul className="ps-0 max-h-100 ">
+            <nobr>
+                <li>
+                    <FileTreeElement searchString={searchString} file={fileManager.fileTree} />
+                </li>
+            </nobr>
+        </ul>
     );
 };
 

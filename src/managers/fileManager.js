@@ -1,9 +1,18 @@
-import { useState, createContext } from "react";
+import { useState, createContext, useContext, useEffect } from "react";
+import { ProjectManagerContext } from "./projectManager";
 
 export const setupFileManager = (curPath) => {
     const [openFiles, setOpenFiles] = useState([]);
     const [active, setActive] = useState("");
     const [fileTree, setFileTree] = useState(null);
+
+    const projectManager = useContext(ProjectManagerContext);
+    useEffect(() => {
+        setFileTree(null);
+        setActive("");
+        setOpenFiles([]);
+    }, [projectManager.current]);
+
     return {
         setFileTree,
         fileTree,

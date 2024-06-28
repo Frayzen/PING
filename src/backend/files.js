@@ -33,7 +33,7 @@ const endpoints = {
             properties: ['openDirectory'],
             title: 'Select a project folder',
         });
-        return result[0];
+        return result ? result[0] : undefined;
     },
 
     fetchFileContent: (path) => {
