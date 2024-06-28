@@ -3,6 +3,7 @@ import { useState, useEffect, createContext, useRef } from "react";
 export const setupActivityManager = () => {
     const [xpBoost, setXpBoost] = useState(0);
     const [xp, setXp] = useState(50);
+    const [keySequence, setKeySequence] = useState([]);
     const lastActivityTimeRef = useRef(Date.now());
 
     const handleActivity = () => {
@@ -14,14 +15,39 @@ export const setupActivityManager = () => {
     const updateBoost = (inc) => {
         curXpBoost += inc ? 1 : -1;
         curXpBoost = Math.max(-2, Math.min(curXpBoost, 5));
-        curXp += curXpBoost;
-        curXp = Math.max(0, Math.min(600, curXp)); // 600 because 6 images
+        // if (curXpBoost < 0) { // inactive
+        //     curXp = Math.max(0, curXp + curXpBoost);
+        //     curXp = Math.max(0, Math.min(600, curXp)); // 600 because 6 images
+        //     setXp(curXp);
+        // }
         setXpBoost(curXpBoost);
-        setXp(curXp);
 
     };
+    const updateXp = () => {
+        curXp += 20;
+        curXp = Math.max(0, Math.min(600, curXp)); // 600 because 6 images
+        setXp(curXp);
+    };
+    useEffect(() => {
+        const handleKeyPress = (event) => {
+            const key = event.key;
+            setKeySequence(prevSequence => {
+                const newSequence = [...prevSequence, key].slice(-4);
+                if (newSequence.join('') === 'test') {
+                    updateXp();
+                    return [];
+                }
+                return newSequence;
+            });
+        };
 
+        document.addEventListener('keypress', handleKeyPress);
 
+        return () => {
+            document.removeEventListener('keypress', handleKeyPress);
+        };
+    }, []);
+    
     useEffect(() => {
         const interval = setInterval(() => {
             const currentTime = Date.now();
@@ -31,9 +57,9 @@ export const setupActivityManager = () => {
         }, 500); // change this time interval for faster/slower progress
 
         return () => {
-            clearInterval(interval); 
+            clearInterval(interval);
         };
-    }, []); 
+    }, []);
 
     useEffect(() => {
         document.addEventListener('mousemove', handleActivity);
