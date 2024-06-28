@@ -6,21 +6,21 @@ const TextEditor = () => {
     const [saved, setSaved] = useState(true);
 
     useEffect(() => {
-        const handleSave = () => {
-            setSaved(true);
-        };
+        // const handleSave = () => {
+        //     setSaved(true);
+        // };
 
-        const saveListener = () => handleSave();
+        // const saveListener = () => handleSave();
 
-        if (window.api && window.api.onSaveText) {
-            window.api.onSaveText(saveListener);
-        }
+        // if (window.api && window.api.onSaveText) {
+        //     window.api.onSaveText(saveListener);
+        // }
 
-        return () => {
-            if (window.api && window.api.removeSaveTextListener) {
-                window.api.removeSaveTextListener(saveListener);
-            }
-        };
+        // return () => {
+        //     if (window.api && window.api.removeSaveTextListener) {
+        //         window.api.removeSaveTextListener(saveListener);
+        //     }
+        // };
     }, []);
 
     const handleTextChange = (event) => {
