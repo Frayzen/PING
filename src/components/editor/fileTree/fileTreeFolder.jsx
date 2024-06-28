@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { FileManagerContext } from "../../../managers/fileManager";
 import FileTreeElement from "./fileTreeElement.jsx";
 
@@ -9,6 +9,9 @@ const FileTreeFolder = ({ file, searchString }) => {
     const toggle = () => {
         setIsOpen(!isOpen);
     };
+    useEffect(() => {
+        $("#filetree").getNiceScroll().resize();
+    }, [isOpen]);
     if (searchString.length == 0 || file.name.toLowerCase().includes(searchString.toLowerCase()))
         searchString = "";
     let children = file.children.map((child) => {
@@ -23,12 +26,13 @@ const FileTreeFolder = ({ file, searchString }) => {
         return null;
     return (
         <>
-            <a href="#" onClick={toggle} className="text-white" onMouseEnter={() => {
-                setHover(true);
-            }} onMouseLeave={() => {
-                setHover(false);
-            }}>
-                <i className={`fa-regular ${isOpen ? "fa-folder-open" : "fa-folder-closed"}`}></i>
+            <a href="#" onClick={toggle} className={`text-white ${hover ? "me-4" : ""}`}
+                onMouseEnter={() => {
+                    setHover(true);
+                }} onMouseLeave={() => {
+                    setHover(false);
+                }}>
+                <i className={isOpen ? "fa-solid fa-folder-open" : "fa fa-folder-closed"} ></i>
                 <span className="px-2">{file.name}</span>
                 {hover &&
                     <>
@@ -42,7 +46,7 @@ const FileTreeFolder = ({ file, searchString }) => {
                         }}></i>
                     </>
                 }
-            </a>
+            </a >
             <ul className={isOpen ? "" : "d-none"}>
                 {children.length > 0 && children.map((child, index) => {
                     return (

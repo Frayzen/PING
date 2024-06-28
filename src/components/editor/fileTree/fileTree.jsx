@@ -6,9 +6,7 @@ const FileTree = ({ searchString }) => {
     const fileManager = useContext(FileManagerContext);
     useEffect(() => {
         if (fileManager.fileTree == null)
-            fileManager.fetchFiles().then((tree) => {
-                fileManager.setFileTree(tree);
-            });
+            fileManager.fetchFiles();
         return () => {
             // @ts-ignore
             $('#filetree').niceScroll({
@@ -18,19 +16,21 @@ const FileTree = ({ searchString }) => {
     }, [fileManager.fileTree]);
     if (fileManager.fileTree == null) {
         return (
-            <div className="spinner-border text-secondary mx-auto my-2" role="status">
-                <span className="visually-hidden">Loading...</span>
+            <div className="text-center py-2 w-100">
+                <i className="spinner-border text-secondary" role="status">
+                </i>
             </div>
         );
     }
     return (
-        <ul className="ps-0 max-h-100 ">
-            <nobr>
+        // @ts-ignore
+        <nobr>
+            <ul className="ps-0 max-h-100 ">
                 <li>
                     <FileTreeElement searchString={searchString} file={fileManager.fileTree} />
                 </li>
-            </nobr>
-        </ul>
+            </ul>
+        </nobr>
     );
 };
 

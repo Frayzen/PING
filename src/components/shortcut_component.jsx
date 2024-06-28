@@ -9,6 +9,7 @@ const ShortcutHandler = () => {
             projectManager.openProject();
         });
     }, []);
+    return null;
 }
 
 export default ShortcutHandler;

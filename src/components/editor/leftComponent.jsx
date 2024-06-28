@@ -1,15 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import FileTree from "./fileTree/fileTree.jsx";
 import ProfileComponent from "./profile.jsx";
 import SearchDir from "./SearchDir.jsx";
+import { FileManagerContext } from "../../managers/fileManager.js";
 
 const LeftComponent = () => {
     const [searchString, setSearchString] = useState("");
+    const fileManager = useContext(FileManagerContext)
     return (
         <>
             <div className="d-flex h-100 flex-column py-2">
                 <div>
-                    <h3 className="text-center">File Tree</h3>
+                    <h3 className="text-center">File Tree
+                        <a href="#" className="text-secondary ms-2" onClick={() => fileManager.fetchFiles()}>
+                            <i className="fa fa-refresh" ></i>
+                        </a>
+                    </h3>
                 </div>
                 <div>
                     <SearchDir searchString={searchString} onChange={(event) => setSearchString(event.target.value)} />
@@ -20,7 +26,7 @@ const LeftComponent = () => {
                 <div>
                     <ProfileComponent />
                 </div>
-            </div>
+            </div >
         </>
     );
 }

@@ -73,7 +73,7 @@ const endpoints = {
     },
 
     fetchFileContent: (path) => {
-        return fs.readFileSync(path, 'utf8');
+        return fs.readFileSync(path, 'utf8').toString().split("\n");
     },
 
     fetchFiles: (dirPath, pattern = '') => {
