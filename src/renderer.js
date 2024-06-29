@@ -33,9 +33,10 @@ import '../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
 import './css/fileTree.css'
 import './css/profile.css'
 import './css/global.css'
+import './css/editor.css'
 import './index.js'
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import '../node_modules/bootstrap/dist/js/bootstrap.min.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
 
 import { Toast, TOAST_STATUS, TOAST_PLACEMENT } from "bootstrap-toaster";
 Toast.setPlacement(TOAST_PLACEMENT.BOTTOM_RIGHT)

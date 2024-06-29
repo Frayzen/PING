@@ -42,6 +42,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/vue-fontawesome": "^3.0.8",
+    "@monaco-editor/react": "^4.6.0",
     "@types/jquery": "^3.5.30",
     "@uiw/codemirror-extensions-langs": "^4.22.2",
     "@uiw/codemirror-theme-atomone": "^4.22.2",
