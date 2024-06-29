@@ -5146,7 +5146,7 @@ prop-types-extra@^1.1.0:
     react-is "^16.3.2"
     warning "^4.0.0"
 
-prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.1:
+prop-types@^15.6.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -5233,27 +5233,13 @@ react-bootstrap@^2.10.3:
     uncontrollable "^7.2.1"
     warning "^4.0.3"
 
-"react-dom@^16.8.0 || ^17", react-dom@^18.3.1, react-dom@>=16.14.0, react-dom@>=16.6.0, react-dom@>=16.8.0:
+react-dom@^18.3.1, react-dom@>=16.14.0, react-dom@>=16.6.0, react-dom@>=16.8.0:
   version "18.3.1"
   resolved "https://registry.npmjs.org/react-dom/-/react-dom-18.3.1.tgz"
   integrity sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==
   dependencies:
     loose-envify "^1.1.0"
     scheduler "^0.23.2"
-
-react-folder-tree@^5.1.1:
-  version "5.1.1"
-  resolved "https://registry.npmjs.org/react-folder-tree/-/react-folder-tree-5.1.1.tgz"
-  integrity sha512-lqXSXxaf4KD3abV9W9DXSrGI1YtFxQSGm73jSBU25G7IK0BKfRv8FB+WHm2tTMK637mSnWVBirwt6LsE/Pmq8g==
-  dependencies:
-    prop-types "^15.7.2"
-    react-icons "^4.1.0"
-    use-tree-state "1.0.0"
-
-react-icons@^4.1.0:
-  version "4.12.0"
-  resolved "https://registry.npmjs.org/react-icons/-/react-icons-4.12.0.tgz"
-  integrity sha512-IBaDuHiShdZqmfc/TwHu6+d6k2ltNCf3AszxNmjJc1KUfXdEeRJOKyNvLmAHaarhzGmTSVygNdyu8/opXv2gaw==
 
 react-is@^16.13.1, react-is@^16.3.2:
   version "16.13.1"
@@ -5275,7 +5261,7 @@ react-transition-group@^4.4.5:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react@*, "react@^16.8.0 || ^17", "react@^16.8.0 || ^17.0.0-rc.1 || ^18.0.0", react@^18.3.1, react@>=0.14.0, react@>=15.0.0, react@>=16.14.0, react@>=16.6.0, react@>=16.8.0:
+"react@^16.8.0 || ^17.0.0-rc.1 || ^18.0.0", react@^18.3.1, react@>=0.14.0, react@>=15.0.0, react@>=16.14.0, react@>=16.6.0, react@>=16.8.0:
   version "18.3.1"
   resolved "https://registry.npmjs.org/react/-/react-18.3.1.tgz"
   integrity sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==
@@ -6154,11 +6140,6 @@ uri-js@^4.2.2, uri-js@^4.4.1:
   integrity sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==
   dependencies:
     punycode "^2.1.0"
-
-use-tree-state@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/use-tree-state/-/use-tree-state-1.0.0.tgz"
-  integrity sha512-MEHuUbZWGhekkFCboH0HKOhSHe5zm/l0C+GJdg0+vAuBr42VYmCTO9P2NfQMPU3Gkj7Zys93vtpl/fGReuOi5w==
 
 username@^5.1.0:
   version "5.1.0"
