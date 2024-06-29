@@ -15,6 +15,12 @@ const LeftComponent = () => {
                         <a href="#" className="text-secondary ms-2" onClick={() => fileManager.fetchFiles()}>
                             <i className="fa fa-refresh" ></i>
                         </a>
+                        {fileManager.saving && <i className="fa fa-spinner fa-spin"></i>}
+                        {!fileManager.saving && (
+                            <a href="#" className="text-secondary ms-2" onClick={() => fileManager.saveFileContent()}>
+                                <i className="fa fa-save" ></i>
+                            </a>
+                        )}
                     </h3>
                 </div>
                 <div>

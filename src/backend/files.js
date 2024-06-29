@@ -2,10 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const { dialog } = require('electron');
 
-const randomUID = () => {
-    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-}
-
 const isDirectory = (filePath) => {
     try {
         const stat = fs.statSync(filePath);
@@ -46,6 +42,10 @@ const endpoints = {
         return true;
     },
 
+    saveFileContent: (path, content) => {
+        fs.writeFileSync(path, content);
+    },
+
     createFile: (path) => {
         try {
             if (path.endsWith("/")) {
@@ -63,7 +63,7 @@ const endpoints = {
                     name: path.split("/").pop(),
                     type: "file",
                     path: path,
-                    uid: randomUID()
+                    uid: randomUID(path)
                 };
             }
         } catch (err) {
@@ -105,7 +105,7 @@ const endpoints = {
                                 type: 'file',
                                 path: filePath,
                                 parent: parent,
-                                uid: randomUID()
+                                uid: filePath.replace(/\//g, "_")
                             };
                             list.push(fileObject);
                         }
@@ -116,7 +116,7 @@ const endpoints = {
                 name: path.basename(dirPath),
                 type: 'folder',
                 path: dirPath,
-                uid: randomUID()
+                uid: dirPath.replace(/\//g, "_"), 
             };
             buildFiles(base, dirPath, filesJson);
             base.children = filesJson;

@@ -2,7 +2,6 @@ import React from "react";
 import RightComponent from "./components/editor/rightComponent.jsx";
 import LeftComponent from "./components/editor/leftComponent.jsx";
 import IDE from "./components/ide.jsx";
-import ShortcutHandler from "./components/shortcut_component.jsx";
 
 function App() {
     const { FileManagerContext, setupFileManager } = require("./managers/fileManager.js");
@@ -15,7 +14,6 @@ function App() {
                 height: "100vh",
             }}>
                 <IDE />
-                <ShortcutHandler />
             </div>
         </ProjectManagerContext.Provider>
     );

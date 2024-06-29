@@ -6,7 +6,7 @@ const FileOpenText = ({ file }) => {
     const [loading, isLoading] = useState(true);
     const fileManager = useContext(FileManagerContext);
     const id = file.uid;
-    const active = fileManager.active == id;
+    const active = fileManager.active.uid == id;
     useLayoutEffect(() => {
         // wait 1s
         setTimeout(() => {
@@ -22,6 +22,7 @@ const FileOpenText = ({ file }) => {
             isLoading(false);
         });
     }, []);
+
     return (
         <div className={`h-100 tab-pane fade ${active ? "show active" : ""}`} role="tabpanel" aria-labelledby={id}>
             {loading &&
@@ -29,7 +30,7 @@ const FileOpenText = ({ file }) => {
                     <span className="visually-hidden">Loading...</span>
                 </div>
             }
-            {!loading && <TextEditor content={file.content} />}
+            {!loading && <TextEditor file={file} />}
         </div >
     );
 };

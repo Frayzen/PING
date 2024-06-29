@@ -17,17 +17,14 @@ const createWindow = () => {
     });
 
     mainWindow.removeMenu()
-
-    globalShortcut.register('CommandOrControl+S', () => {
-        mainWindow.webContents.send('save-text');
-    });
-
-    // and load the index.html of the app.
-    mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
+    globalShortcut.unregisterAll();
 
     globalShortcut.register('CommandOrControl+D', () => {
         mainWindow.webContents.openDevTools();
     });
+
+    // and load the index.html of the app.
+    mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
     // Open the DevTools.
     mainWindow.webContents.openDevTools();

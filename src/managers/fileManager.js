@@ -4,34 +4,36 @@ import bootbox from "bootbox";
 
 export const setupFileManager = (curPath) => {
     const [openFiles, setOpenFiles] = useState([]);
-    const [active, setActive] = useState("");
+    const [active, setActive] = useState({ uid: "" });
     const [fileTree, setFileTree] = useState(null);
+    const [edited, setEdited] = useState([]);
+    const [saving, setSaving] = useState(false);
 
     const projectManager = useContext(ProjectManagerContext);
     useEffect(() => {
         setFileTree(null);
-        setActive("");
+        setActive({ uid: "" });
         setOpenFiles([]);
     }, [projectManager.current]);
 
     const openFile = (file) => {
         const exist = openFiles.find((f) => f.uid === file.uid);
         if (exist) {
-            setActive(exist.uid);
+            setActive(exist);
             return;
         }
         setOpenFiles([...openFiles, file]);
-        setActive(file.uid);
+        setActive(file);
     }
     const closeFile = (id) => {
         // set openfiles to the array without the file at position id
-        if (active == id && openFiles.length > 1)
+        if (active.uid == id && openFiles.length > 1)
             for (let i = 0; i < openFiles.length; i++)
                 if (openFiles[i].uid == id) {
                     if (i == 0)
-                        setActive(openFiles[i + 1].uid);
+                        setActive(openFiles[i + 1]);
                     else
-                        setActive(openFiles[i - 1].uid);
+                        setActive(openFiles[i - 1]);
                     break;
                 }
         setOpenFiles(openFiles.filter((f) => {
@@ -54,10 +56,21 @@ export const setupFileManager = (curPath) => {
         fetchFileContent: async (path) => {
             return (await window.api.fetchFileContent(path)).join("\n");
         },
-        saveFileContent: async (path, content) => {
+        saveFileContent: async function() {
+            const file = this.active;
+            if (file.uid == "")
+                return;
+            setSaving(true);
+            await window.api.saveFileContent(file.path, file.content);
+            const edited = this.edited.filter((f) => f != file.uid);
+            setEdited(edited);
+            setSaving(false);
         },
+        saving,
         openFile,
         closeFile,
+        edited,
+        setEdited,
         deleteFile: async (file) => {
             const path = file.path;
             const result = bootbox.confirm({
@@ -97,6 +110,22 @@ export const setupFileManager = (curPath) => {
                     }
                 }
             });
+        },
+        getNextFile: function() {
+            const index = this.openFiles.findIndex((f) => f.uid == this.active.uid);
+            if (index == -1)
+                return null;
+            if (index == this.openFiles.length - 1)
+                return this.openFiles[0];
+            return this.openFiles[index + 1];
+        },
+        getPrevFile: function() {
+            const index = this.openFiles.findIndex((f) => f.uid == this.active.uid);
+            if (index == -1)
+                return null;
+            if (index == 0)
+                return this.openFiles[this.openFiles.length - 1];
+            return this.openFiles[index - 1];
         },
     };
 }
