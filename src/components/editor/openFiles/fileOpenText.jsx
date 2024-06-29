@@ -6,7 +6,6 @@ import { StreamLanguage } from '@codemirror/language';
 import { langs } from '@uiw/codemirror-extensions-langs';
 import { atomone, atomoneInit } from '@uiw/codemirror-theme-atomone';
 import { autocompletion } from "@codemirror/autocomplete"
-import 'codemirror/keymap/sublime';
 
 const FileOpenText = ({ file }) => {
     const [loading, isLoading] = useState(true);
