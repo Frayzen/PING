@@ -4,8 +4,28 @@ import SaveIndicator from './SaveIndicator.jsx';
 import { Editor, useMonaco } from '@monaco-editor/react';
 import { FileManagerContext } from '../../../managers/fileManager.js';
 
+const languages = {
+    'py': 'python',
+    'js': 'javascript',
+    'jsx': 'javascript',
+    'ts': 'typeScript',
+    'tsx': 'typeScript',
+    'html': 'html',
+    'md': 'markdown',
+    'css': 'css',
+    'cpp': 'c',
+    'c': 'c',
+    'h': 'c',
+    'hpp': 'c',
+    'h++': 'c',
+    'cc': 'c',
+    'java': 'java',
+}
+
 const TextEditor = ({ file }) => {
     const fileManager = useContext(FileManagerContext);
+    const name = file.path.split('.').pop();
+    const lang = languages[name] || "Plain Text";
     return (
         <Editor
             onChange={content => {
@@ -13,10 +33,10 @@ const TextEditor = ({ file }) => {
                 // append to edited
                 fileManager.setEdited([fileManager.edited, file.uid].flat());
             }}
-            height="100%" defaultLanguage="python" value={file.content} theme="onedark"
+            height="100%" language={lang} value={file.content} theme="onedark"
             beforeMount={(monaco) => {
                 const backgroundColor = getComputedStyle(document.body).getPropertyValue('--bs-dark');
-                console.log(backgroundColor);
+                console.log(monaco.editor)
                 monaco.editor.defineTheme('onedark', {
                     base: 'vs-dark',
                     inherit: true,

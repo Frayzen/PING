@@ -2,6 +2,9 @@ const fs = require('fs');
 const path = require('path');
 const { dialog } = require('electron');
 
+const toUid = (path) => {
+    return path.replace(/\//g, "_");
+}
 const isDirectory = (filePath) => {
     try {
         const stat = fs.statSync(filePath);
@@ -63,7 +66,7 @@ const endpoints = {
                     name: path.split("/").pop(),
                     type: "file",
                     path: path,
-                    uid: randomUID(path)
+                    uid: toUid(path)
                 };
             }
         } catch (err) {
@@ -105,7 +108,7 @@ const endpoints = {
                                 type: 'file',
                                 path: filePath,
                                 parent: parent,
-                                uid: filePath.replace(/\//g, "_")
+                                uid: toUid(filePath)
                             };
                             list.push(fileObject);
                         }
@@ -116,7 +119,7 @@ const endpoints = {
                 name: path.basename(dirPath),
                 type: 'folder',
                 path: dirPath,
-                uid: dirPath.replace(/\//g, "_"), 
+                parent: null,
             };
             buildFiles(base, dirPath, filesJson);
             base.children = filesJson;

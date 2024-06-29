@@ -101,6 +101,7 @@ export const setupFileManager = (curPath) => {
                     console.log(folder.path + "/" + result)
                     const newPath = (folder.path + "/" + result).replace(/\/+/, "/");
                     const newFile = await window.api.createFile(newPath)
+                    newFile.parent = folder;
                     console.log(newFile)
                     if (newFile) {
                         folder.children.push(newFile);
