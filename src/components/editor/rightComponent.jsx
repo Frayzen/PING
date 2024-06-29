@@ -13,7 +13,7 @@ const RightComponent = () => {
     }, [fileManager.openFiles]);
     return (
         <>
-            <ul className="nav nav-tabs border-0 align-self-end mt-1 d-flex flex-nowrap overflow-hidden" id="fileTabs" role="tablist">
+            <ul className="nav nav-tabs border-0 align-self-end mt-1 d-flex flex-nowrap overflow-x-hidden py-1" id="fileTabs" role="tablist">
                 <li key="prelist" className="nav-item flex-grow-0 p-1 border-bottom">
                 </li>
                 {fileManager.openFiles.map((file) => {
