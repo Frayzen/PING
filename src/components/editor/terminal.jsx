@@ -6,7 +6,7 @@ const TerminalComponent = () => {
     const Terminal = require('xterm').Terminal;
     const FitAddon = require('xterm-addon-fit').FitAddon;
     const term = new Terminal({
-        fontFamily: 'Courier New, Courier, monospace',
+        fontFamily: 'FiraCode Nerd Font',
         fontSize: 14,
         theme: {
             background: '#111111',
