@@ -9,10 +9,12 @@ function App() {
 
     return (
         <ProjectManagerContext.Provider value={setupProjectManager()}>
-            <div className="container-fluid bg-light-subtle min-vh-100 d-flex p-0" style={{
-                width: "100vw",
-                height: "100vh",
-            }}>
+            <div className="container-fluid bg-light-subtle min-vh-100 d-flex p-0"
+                style={{
+                    width: "100vw",
+                    height: "100vh",
+                }}
+            >
                 <IDE />
             </div>
         </ProjectManagerContext.Provider>

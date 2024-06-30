@@ -14,4 +14,14 @@ const defineEndpoints = (endpoints) => {
 
 const endpoints = ipcRenderer.sendSync('fetchEndpoints');
 const endpointsObject = defineEndpoints(endpoints);
+let termHandler = (data) => {
+    console.log(data, "BASIC HANDLER");
+};
+endpointsObject.onTerminalData = (fn) => {
+    termHandler = fn;
+}
 contextBridge.exposeInMainWorld('api', endpointsObject);
+ipcRenderer.on('terminal.data', (event, data) => {
+    termHandler(data);
+})
+

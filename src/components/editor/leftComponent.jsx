@@ -12,7 +12,7 @@ const LeftComponent = () => {
     let curPath = projectManager.current;
     const maxPathLength = 30;
     if (curPath.length > maxPathLength)
-        curPath = "..."+curPath.slice(curPath.length-maxPathLength);
+        curPath = "..." + curPath.slice(curPath.length - maxPathLength);
     return (
         <>
             <div className="d-flex h-100 flex-column py-2">
