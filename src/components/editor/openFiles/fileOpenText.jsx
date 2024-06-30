@@ -7,15 +7,6 @@ const FileOpenText = ({ file }) => {
     const fileManager = useContext(FileManagerContext);
     const id = file.uid;
     const active = fileManager.active.uid == id;
-    useLayoutEffect(() => {
-        // wait 1s
-        setTimeout(() => {
-            // @ts-ignore
-            $(`#${id}`).niceScroll({
-                cursorborder: "1px solid #666",
-            });
-        }, 10);
-    }, []);
     useEffect(() => {
         fileManager.fetchFileContent(file.path).then((response) => {
             file.content = response;

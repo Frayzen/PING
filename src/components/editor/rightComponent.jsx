@@ -1,20 +1,20 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import TabListItem from "./openFiles/tabListItem.jsx";
 import { FileManagerContext } from "../../managers/fileManager.js";
 import FileOpenText from "./openFiles/fileOpenText.jsx";
 import TerminalComponent from "./terminal.jsx";
+import { Resizable } from "re-resizable";
+
+const defaultTermHeight = 250;
+const minTermHeight = 100;
 
 const RightComponent = () => {
     const fileManager = useContext(FileManagerContext);
-    useEffect(() => {
-        // @ts-ignore
-        $('#fileTabs').niceScroll({
-            cursorborder: "1px solid #666",
-        });
-    }, [fileManager.openFiles]);
+    const [termHeight, setTermHeight] = useState(250);
+    const [collapsed, setCollapsed] = useState(false);
     return (
         <>
-            <ul className="nav nav-tabs border-0 align-self-end mt-1 d-flex flex-nowrap overflow-x-hidden w-100 h-auto" id="fileTabs" role="tablist">
+            <ul className="nav nav-tabs border-0 align-self-end mt-1 d-flex flex-nowrap scrollbar w-100 h-auto" id="fileTabs" role="tablist">
                 <li key="prelist" className="nav-item flex-grow-0 p-1 border-bottom">
                 </li>
                 {fileManager.openFiles.map((file) => {
@@ -28,9 +28,8 @@ const RightComponent = () => {
                     return <FileOpenText file={file} />
                 })}
             </div>
-            <div>
-                <TerminalComponent />
-            </div>
+            <TerminalComponent />
+
         </>
     );
 }

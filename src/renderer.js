@@ -28,11 +28,11 @@
 
 window.$ = window.jQuery = require('jquery');
 window.bootstrap = require('bootstrap/dist/js/bootstrap.bundle.js');
-import 'nicescroll/jquery.nicescroll.js'
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'xterm/css/xterm.css';
 import './css/fileTree.css'
 import './css/profile.css'
+import './css/term.css'
 import './css/global.css'
 import './css/editor.css'
 import './index.js'

@@ -4084,7 +4084,7 @@ jest-worker@^27.4.5:
     merge-stream "^2.0.0"
     supports-color "^8.0.0"
 
-jquery@^3.7.1, jquery@>=1.8.3:
+jquery@^3.7.1:
   version "3.7.1"
   resolved "https://registry.npmjs.org/jquery/-/jquery-3.7.1.tgz"
   integrity sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==
@@ -4580,13 +4580,6 @@ nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.npmjs.org/nice-try/-/nice-try-1.0.5.tgz"
   integrity sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
-
-nicescroll@^3.7.4:
-  version "3.7.4"
-  resolved "https://registry.npmjs.org/nicescroll/-/nicescroll-3.7.4.tgz"
-  integrity sha512-e5UKvdaFlWJtiGy1kd+iX0mVJX4fD9l/aFZzK0igIFql5gr0qtPNuQ3WEGLvI8EuEvllNHY8vMO5WsP2fCtPAw==
-  dependencies:
-    jquery ">=1.8.3"
 
 no-case@^3.0.4:
   version "3.0.4"
@@ -5204,6 +5197,11 @@ raw-body@2.5.2:
     http-errors "2.0.0"
     iconv-lite "0.4.24"
     unpipe "1.0.0"
+
+re-resizable@^6.9.17:
+  version "6.9.17"
+  resolved "https://registry.npmjs.org/re-resizable/-/re-resizable-6.9.17.tgz"
+  integrity sha512-OBqd1BwVXpEJJn/yYROG+CbeqIDBWIp6wathlpB0kzZWWZIY1gPTsgK2yJEui5hOvkCdC2mcexF2V3DZVfLq2g==
 
 react-bootstrap@^2.10.3:
   version "2.10.3"
@@ -6460,10 +6458,10 @@ xterm@^4.9.0:
   resolved "https://registry.npmjs.org/xterm/-/xterm-4.19.0.tgz"
   integrity sha512-c3Cp4eOVsYY5Q839dR5IejghRPpxciGmLWWaP9g+ppfMeBChMeLa1DCA+pmX/jyDZ+zxFOmlJL/82qVdayVoGQ==
 
-xterm@^5.3.0:
-  version "5.3.0"
-  resolved "https://registry.npmjs.org/xterm/-/xterm-5.3.0.tgz"
-  integrity sha512-8QqjlekLUFTrU6x7xck1MsPzPA571K5zNqWm0M0oroYEWVOptZ0+ubQSkQ3uxIEhcIHRujJy6emDWX4A7qyFzg==
+xterm@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.npmjs.org/xterm/-/xterm-5.0.0.tgz"
+  integrity sha512-tmVsKzZovAYNDIaUinfz+VDclraQpPUnAME+JawosgWRMphInDded/PuY0xmU5dOhyeYZsI0nz5yd8dPYsdLTA==
 
 y18n@^5.0.5:
   version "5.0.8"

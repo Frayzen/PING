@@ -6,17 +6,21 @@ import { FileManagerContext, setupFileManager } from "../../managers/fileManager
 import { TerminalManagerContext, setupTerminalManager } from "../../managers/terminalManager.js";
 import ShortcutHandler from "../shortcut_component.jsx";
 import TerminalComponent from "./terminal.jsx";
+import { Resizable } from "re-resizable";
+import { configure, HotKeys } from "react-hotkeys";
+import { SizeManagerContext } from "../../managers/sizeManager.js";
 
+const minLeftWidth = 100;
+const defaultLeftWidth = 200;
 const Editor = () => {
-    const projectManager = React.useContext(ProjectManagerContext);
+    const pm = React.useContext(ProjectManagerContext);
+    const sm = React.useContext(SizeManagerContext);
     return (
-        <FileManagerContext.Provider value={setupFileManager(projectManager.current)}>
-            <TerminalManagerContext.Provider value={setupTerminalManager(projectManager.current)}>
+        <FileManagerContext.Provider value={setupFileManager(pm.current)}>
+            <TerminalManagerContext.Provider value={setupTerminalManager(pm.current)}>
                 <ShortcutHandler />
-                <div className="w-25 bg-body-secondary">
-                    <LeftComponent />
-                </div>
-                <div className="w-75 h-100 d-flex flex-column bg-body-tertiary">
+                <LeftComponent />
+                <div className="w-100 h-100 d-flex flex-column bg-body-tertiary">
                     <RightComponent />
                 </div>
             </TerminalManagerContext.Provider>

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { ProjectManagerContext } from "../managers/projectManager";
 import { GlobalHotKeys, configure } from "react-hotkeys";
 import { FileManagerContext } from "../managers/fileManager";
+import { SizeManagerContext } from "../managers/sizeManager";
 
 const ShortcutHandler = () => {
     const projectManager = React.useContext(ProjectManagerContext);
@@ -9,6 +10,7 @@ const ShortcutHandler = () => {
     configure({
         ignoreTags: ['INPUT', 'TEXTAREA'],
     })
+    const sm = React.useContext(SizeManagerContext);
     return (<>
         <GlobalHotKeys
             allowChanges={true}
@@ -18,6 +20,7 @@ const ShortcutHandler = () => {
                 NEXT_FILE: 'ctrl+tab',
                 PREV_FILE: 'ctrl+shift+tab',
                 CLOSE_FILE: 'ctrl+w',
+                TOGGLE_FULLSCREEN: 'ctrl+.',
             }}
             handlers={{
                 SAVE_TEXT: () => {
@@ -38,6 +41,11 @@ const ShortcutHandler = () => {
                     const next = fileManager.getNextFile();
                     if (next)
                         fileManager.closeFile(next.uid);
+                },
+                TOGGLE_FULLSCREEN: () => {
+                    const val = !sm.leftCollapsed;
+                    sm.setLeftCollapsed(val);
+                    sm.setTerminalCollapsed(val);
                 },
             }}
         />

@@ -14,11 +14,13 @@ const FileOpenText = ({ file }) => {
             <button className={`border-bottom-1 d-flex flex-nowrap border-secondary nav-link ${active ? "active text-white border-bottom-0" : "text-secondary"}`}
                 data-bs-toggle="tab" type="button" data-bs-target={`#${id}`}
                 role="tab" aria-controls={id} aria-selected={active} onClick={() => fileManager.setActive(file)} >
-                <a className="text-white me-2" href="#">{file.name}</a>
+                <a className="text-white me-2" style={{
+                    textWrap: "nowrap"
+                }} href="#">{file.name}</a>
                 <a href="#" onClick={e => {
                     fileManager.closeFile(id);
                     e.stopPropagation();
-                }}><i className={ `fa-solid ${edited ? "fa-circle-xmark" : "fa-xmark"} text-secondary` }></i></a>
+                }}><i className={`fa-solid ${edited ? "fa-circle-xmark" : "fa-xmark"} text-secondary`}></i></a>
             </button>
         </li >
     );

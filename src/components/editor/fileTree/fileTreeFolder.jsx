@@ -9,9 +9,6 @@ const FileTreeFolder = ({ file, searchString }) => {
     const toggle = () => {
         setIsOpen(!isOpen);
     };
-    useEffect(() => {
-        $("#filetree").getNiceScroll().resize();
-    }, [isOpen]);
     if (searchString.length == 0 || file.name.toLowerCase().includes(searchString.toLowerCase()))
         searchString = "";
     let children = file.children.map((child) => {

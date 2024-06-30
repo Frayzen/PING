@@ -7,12 +7,6 @@ const FileTree = ({ searchString }) => {
     useEffect(() => {
         if (fileManager.fileTree == null)
             fileManager.fetchFiles();
-        return () => {
-            // @ts-ignore
-            $('#filetree').niceScroll({
-                cursorborder: "1px solid #666",
-            });
-        };
     }, [fileManager.fileTree]);
     if (fileManager.fileTree == null) {
         return (
