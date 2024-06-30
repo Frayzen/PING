@@ -2,43 +2,64 @@ import { useState, useEffect, createContext, useRef } from "react";
 import words from "../../public/words.json";
 
 export const setupActivityManager = () => {
-    const [xpBoost, setXpBoost] = useState(0);
+    let [xpBoost, setXpBoost] = useState(0);
     const [xp, setXp] = useState(50);
     const [keySequence, setKeySequence] = useState([]);
-    const lastActivityTimeRef = useRef(Date.now());
+    let [active, setActive] = useState(false);
 
-    const wordWeight = 3;
+    const wordWeight = 0.5;
     const inactiveWeight = 3;
-    const maxWeight = 5;
+    const maxBoostValue = 5;
     const boostInc = 1
     const nbImages = 6;
-    const inactivityLimit = 10000;
-    const boostPeriod = 500; 
+    const boostPeriodSec = 1;
+    const inactivityLimitSec = boostPeriodSec * 5;
+    const xpPeriod = 2;
 
+    let activityTimeout = null;
+    let boostTimeout = null;
     const handleActivity = () => {
-        lastActivityTimeRef.current = Date.now();
+        console.log("top");
+        setActive(true);
+        active = true;
+        if (activityTimeout) {
+            clearTimeout(activityTimeout);
+        }
+        activityTimeout = setTimeout(() => {
+            setActive(false);
+            active = false;
+            console.log("inactve");
+        }, inactivityLimitSec * 1000);
     };
 
     let curXpBoost = xpBoost;
-    let curXp = xp;
-    const updateBoost = (inc) => {
-        curXpBoost += inc ? boostInc : -boostInc;
-        curXpBoost = Math.max(-1, Math.min(curXpBoost, maxWeight));
-        if (curXpBoost < 0) { // inactive
-            curXp = curXp + inactiveWeight;
-            curXp = Math.max(0,  curXp); 
-            setXp(curXp);
-        }
-        setXpBoost(curXpBoost);
+    useEffect(() => {
+        const handleBoost = () => {
+            clearTimeout(boostTimeout);
+            boostTimeout = setTimeout(() => {
+                curXpBoost += active ? boostInc : -boostInc;
+                curXpBoost = Math.max(0, Math.min(curXpBoost, maxBoostValue));
+                setXpBoost(curXpBoost);
+                handleBoost();
+            }, boostPeriodSec * 1000);
+        };
+        handleBoost();
+        return () => {
+            clearTimeout(boostTimeout);
+        };
+    }, [active]);
 
-    };
+    let curXp = xp;
     const updateXp = (weight) => {
         curXp += weight * curXpBoost;
-        curXp = Math.min(nbImages * 100, curXp); 
+        // curXp = Math.min(nbImages * 100, curXp);
         setXp(curXp);
+
     };
 
-      useEffect(() => {
+       
+
+    useEffect(() => {
         const handleKeyPress = (event) => {
             const key = event.key;
             setKeySequence(prevSequence => {
@@ -46,30 +67,18 @@ export const setupActivityManager = () => {
                 const matchedSequence = words.find(seq => newSequence.join('').endsWith(seq));
                 if (matchedSequence) {
                     updateXp(wordWeight);
-                    return []; 
+                    return [];
                 }
                 return newSequence;
             });
         };
-
         document.addEventListener('keypress', handleKeyPress);
 
         return () => {
             document.removeEventListener('keypress', handleKeyPress);
         };
-    }, []);   
-    useEffect(() => {
-        const interval = setInterval(() => {
-            const currentTime = Date.now();
-            const timeSinceLastActivity = currentTime - lastActivityTimeRef.current;
-            const inc = timeSinceLastActivity < inactivityLimit;
-            updateBoost(inc);
-        }, boostPeriod);
-
-        return () => {
-            clearInterval(interval);
-        };
     }, []);
+
 
     useEffect(() => {
         document.addEventListener('mousemove', handleActivity);
@@ -83,11 +92,10 @@ export const setupActivityManager = () => {
         };
     }, []);
     return {
-        updateBoost,
         xpBoost,
         xp,
-    };
-
+        active,
+    }
 };
 
 export const ActivityManager = createContext(null);

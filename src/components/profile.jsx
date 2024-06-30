@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import armadillo from '../../public/armadillo.png';
 import chief from '../../public/chief.png';
 import fatcheetah from '../../public/fatcheetah.png';
@@ -11,11 +11,12 @@ import { ActivityManager } from "../managers/activityManager.js";
 
 const Profile = () => {
     const activityManager = React.useContext(ActivityManager);
+    const [active, setActive] = useState(true);
     useEffect(() => {
         return async () => {
             var imgs = [sloth, snoop, fatcheetah, florian, chief, rabbit];
             const profilePicture = document.getElementById('profile-picture');
-            let i = (activityManager.xp - (activityManager.xp % 100) ) /100;
+            let i = (activityManager.xp - (activityManager.xp % 100)) / 100;
             profilePicture.style.backgroundImage = `url(${imgs[i % imgs.length]})`;
         }
     }, [activityManager.xp]);
@@ -31,13 +32,14 @@ const Profile = () => {
                             width: (activityManager.xp % 100) + '%',
                         }}></div>
                     </div>
-                    <div className="mt-1">
-                        {activityManager.xpBoost >= 1 && (
-                            <p className="mb-0">XP Boost: x{activityManager.xpBoost}</p>
-                        )}
-                        {activityManager.xpBoost < 1 && (
-                            <span class="badge text-bg-danger">Inactive</span>
-                        )}
+                    <div className="mt-3">
+                        <div className="d-flex">
+                            <p className="mb-0">XP Boost: x{activityManager.xpBoost} </p>
+        <div className="flex-grow-1"></div>
+                            {!activityManager.active && (
+                                <span class="badge text-bg-danger">Inactive</span>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>
