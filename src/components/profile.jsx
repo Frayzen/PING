@@ -34,8 +34,12 @@ const Profile = () => {
                     </div>
                     <div className="mt-3">
                         <div className="d-flex">
-                            <p className="mb-0">XP Boost: x{activityManager.xpBoost} </p>
-        <div className="flex-grow-1"></div>
+                            {activityManager.xpBoost > 1 && (
+                                <p className="mb-0">XP Boost: x{activityManager.xpBoost}</p>
+                            )}
+                            <div className="flex-grow-1">
+
+                            </div>
                             {!activityManager.active && (
                                 <span class="badge text-bg-danger">Inactive</span>
                             )}
