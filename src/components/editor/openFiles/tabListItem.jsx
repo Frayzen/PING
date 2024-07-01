@@ -9,6 +9,8 @@ const FileOpenText = ({ file }) => {
         setEdited(fileManager.edited.includes(id));
     }, [fileManager.edited]);
 
+    console.log("DRAW", file);
+    console.log("ACTIVE", active);
     return (
         <li className={`nav-item d-flex ${!active ? "border-0 border-bottom bg-dark" : null}`} role="presentation" key={`tab${id}`} >
             <button className={`border-bottom-1 d-flex flex-nowrap border-secondary nav-link ${active ? "active text-white border-bottom-0" : "text-secondary"}`}

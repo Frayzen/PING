@@ -4,7 +4,7 @@ import FileTreeElement from "./fileTreeElement.jsx";
 
 const FileTreeFolder = ({ file, searchString }) => {
     const fileManager = useContext(FileManagerContext);
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(fileManager.fileTree == file);
     const [hover, setHover] = useState(false);
     const toggle = () => {
         setIsOpen(!isOpen);
@@ -44,7 +44,7 @@ const FileTreeFolder = ({ file, searchString }) => {
                     </>
                 }
             </a >
-            <ul className={isOpen ? "" : "d-none"}>
+            {isOpen && <ul>
                 {children.length > 0 && children.map((child, index) => {
                     return (
                         <li key={index}>
@@ -53,7 +53,7 @@ const FileTreeFolder = ({ file, searchString }) => {
                     );
                 })}
                 {file.children.length == 0 && <li key="no-files" className="text-secondary ps-2">Empty</li>}
-            </ul>
+            </ul>}
         </>
     );
 };

@@ -25,22 +25,19 @@ export const setupFileManager = (curPath) => {
         setOpenFiles([...openFiles, file]);
         setActive(file);
     }
-    const closeFile = (id) => {
+    const closeFile = function(id) {
         // set openfiles to the array without the file at position id
         if (active.uid == id && openFiles.length > 1)
-            for (let i = 0; i < openFiles.length; i++)
-                if (openFiles[i].uid == id) {
-                    if (i == 0)
-                        setActive(openFiles[i + 1]);
-                    else
-                        setActive(openFiles[i - 1]);
-                    break;
-                }
+            if (openFiles[openFiles.length - 1].uid != id)
+                setActive(this.getNextFile());
+            else
+                setActive(this.getPrevFile());
         setOpenFiles(openFiles.filter((f) => {
             return (f.uid != id)
         }));
     }
     return {
+        setOpenFiles,
         setFileTree,
         fileTree,
         active,
@@ -50,11 +47,14 @@ export const setupFileManager = (curPath) => {
             setFileTree(null);
             // wait 1s
             await new Promise(resolve => setTimeout(resolve, 100));
-            const files = await window.api.fetchFiles(curPath);
-            setFileTree(files);
+            window.api.fetchFiles(curPath).then((files) => {
+                setFileTree(files);
+            });
         },
         fetchFileContent: async (path) => {
-            return (await window.api.fetchFileContent(path)).join("\n");
+            return window.api.fetchFileContent(path).then((content) => {
+                return content.join("\n");
+            });
         },
         saveFileContent: async function() {
             const file = this.active;

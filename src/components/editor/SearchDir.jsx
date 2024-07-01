@@ -4,6 +4,7 @@ const SearchDir = ({ onChange, searchString }) => {
     return (
         <div className="input-group" style={{ padding: "0.5rem" }}>
             <input
+                id="search-input"
                 type="text"
                 className="form-control border-secondary bg-dark text-light"
                 placeholder="Search..."

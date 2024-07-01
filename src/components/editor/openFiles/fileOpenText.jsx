@@ -15,7 +15,7 @@ const FileOpenText = ({ file }) => {
     }, []);
 
     return (
-        <div className={`h-100 tab-pane fade ${active ? "show active" : ""}`} role="tabpanel" aria-labelledby={id}>
+        <div className={`editor-holder h-100 tab-pane fade ${active ? "show active" : ""}`} role="tabpanel" aria-labelledby={id}>
             {loading &&
                 <div className="spinner-border text-secondary mx-auto my-2" role="status">
                     <span className="visually-hidden">Loading...</span>
