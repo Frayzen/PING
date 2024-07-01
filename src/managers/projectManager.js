@@ -6,20 +6,20 @@ export const setupProjectManager = () => {
     return {
         current,
         setCurrent,
-        openProject: () => {
+        selectProject: (callback) => {
             window.api.getProjectPath().then((path) => {
-                if (path != undefined)
-                    setCurrent(path);
-                else {
-                    Toast.create({
-                        title: "Invalid path",
-                        message: "Please provide a valid path",
-                        status: TOAST_STATUS.DANGER,
-                        timeout: 1000
-                    })
-                }
+                callback(path);
             })
-        }
+        },
+        openProject: (project) => {
+            if (project != undefined) {
+                setCurrent(project);
+                return;
+            }
+        },
+        closeProject: () => {
+            setCurrent(null);
+        },
 
     }
 }
