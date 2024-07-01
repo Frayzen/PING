@@ -87,31 +87,35 @@ const endpoints = {
                 files.forEach(file => {
                     const filePath = path.join(currentDirPath, file);
                     const fileName = path.basename(file);
-                    const stat = fs.statSync(filePath);
+                    try {
+                        const stat = fs.statSync(filePath);
 
-                    if (stat.isDirectory()) {
-                        if (fileName.startsWith(pattern)) {
-                            const folderObject = {
-                                name: fileName,
-                                type: 'folder',
-                                path: filePath,
-                                parent: parent,
-                                children: []
-                            };
-                            list.push(folderObject);
-                            buildFiles(folderObject, filePath, folderObject.children);
+                        if (stat.isDirectory()) {
+                            if (fileName.startsWith(pattern)) {
+                                const folderObject = {
+                                    name: fileName,
+                                    type: 'folder',
+                                    path: filePath,
+                                    parent: parent,
+                                    children: []
+                                };
+                                list.push(folderObject);
+                                buildFiles(folderObject, filePath, folderObject.children);
+                            }
+                        } else {
+                            if (file.startsWith(pattern)) {
+                                const fileObject = {
+                                    name: fileName,
+                                    type: 'file',
+                                    path: filePath,
+                                    parent: parent,
+                                    uid: toUid(filePath)
+                                };
+                                list.push(fileObject);
+                            }
                         }
-                    } else {
-                        if (file.startsWith(pattern)) {
-                            const fileObject = {
-                                name: fileName,
-                                type: 'file',
-                                path: filePath,
-                                parent: parent,
-                                uid: toUid(filePath)
-                            };
-                            list.push(fileObject);
-                        }
+                    } catch (err) {
+                        console.error(`Error reading file ${filePath}:`);
                     }
                 });
             };
