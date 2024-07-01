@@ -2,7 +2,7 @@ import { useState, createContext } from "react";
 import { Toast, TOAST_STATUS } from "bootstrap-toaster";
 
 export const setupProjectManager = () => {
-    const [current, setCurrent] = useState("/home/phoenix/Code/aiml/");
+    const [current, setCurrent] = useState(null);
     return {
         current,
         setCurrent,
