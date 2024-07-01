@@ -41,6 +41,7 @@ export const setupFileManager = (curPath) => {
         }));
     }
     return {
+        setOpenFiles,
         setFileTree,
         fileTree,
         active,
@@ -50,11 +51,14 @@ export const setupFileManager = (curPath) => {
             setFileTree(null);
             // wait 1s
             await new Promise(resolve => setTimeout(resolve, 100));
-            const files = await window.api.fetchFiles(curPath);
-            setFileTree(files);
+            window.api.fetchFiles(curPath).then((files) => {
+                setFileTree(files);
+            });
         },
         fetchFileContent: async (path) => {
-            return (await window.api.fetchFileContent(path)).join("\n");
+            return window.api.fetchFileContent(path).then((content) => {
+                return content.join("\n");
+            });
         },
         saveFileContent: async function() {
             const file = this.active;

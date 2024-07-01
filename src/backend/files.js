@@ -83,7 +83,7 @@ const endpoints = {
         try {
             const filesJson = [];
             const buildFiles = (parent, currentDirPath, list) => {
-                const files = fs.readdirSync(currentDirPath);
+                const files = fs.readdirSync(currentDirPath)
                 files.forEach(file => {
                     const filePath = path.join(currentDirPath, file);
                     const fileName = path.basename(file);
@@ -114,16 +114,20 @@ const endpoints = {
                         }
                     }
                 });
-            }
-            const base = {
-                name: path.basename(dirPath),
-                type: 'folder',
-                path: dirPath,
-                parent: null,
             };
-            buildFiles(base, dirPath, filesJson);
-            base.children = filesJson;
-            return base;
+            return new Promise(async (resolve, reject) => {
+                const base = {
+                    name: path.basename(dirPath),
+                    type: 'folder',
+                    path: dirPath,
+                    parent: null,
+                };
+                //wait 2s
+                await setTimeout(() => { }, 2000);
+                buildFiles(base, dirPath, filesJson);
+                base.children = filesJson;
+                resolve(base);
+            });
         } catch (err) {
             console.error(`Error building files JSON for path ${dirPath}:`, err);
             return null;

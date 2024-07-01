@@ -1,3 +1,10 @@
 .monaco-editor .scroll-decoration {
     box-shadow: none !important;
 }
+.editor-holder section {
+    height: 100% !important;
+}
+.monaco-editor, .overflow-guard {
+    height: 100% !important;
+    width: 100% !important;
+}

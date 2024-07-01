@@ -33,7 +33,7 @@ const TextEditor = ({ file }) => {
                 // append to edited
                 fileManager.setEdited([fileManager.edited, file.uid].flat());
             }}
-            height="100%" language={lang} value={file.content} theme="onedark"
+            height="100% !important" language={lang} value={file.content} theme="onedark"
             beforeMount={(monaco) => {
                 const backgroundColor = getComputedStyle(document.body).getPropertyValue('--bs-dark');
                 console.log(monaco.editor)
@@ -48,6 +48,7 @@ const TextEditor = ({ file }) => {
                         'editor.background': backgroundColor
                     }
                 });
+                //diable minimap
             }}
             options={{
                 fontFamily: 'Fira Code',

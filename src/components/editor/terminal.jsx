@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect, useLayoutEffect } from "react";
 import { TerminalManagerContext } from "../../managers/terminalManager.js";
 import { Resizable } from "re-resizable";
 import { SizeManagerContext } from "../../managers/sizeManager.js";
+import { FileManagerContext } from "../../managers/fileManager.js";
 
 const minTermHeight = 100;
 const maxTermHeight = 500;
@@ -49,6 +50,12 @@ const TerminalComponent = () => {
 
         xterm_resize_ob.observe(document.getElementById('terminal-container'));
     }, []);
+
+    const fileManager = React.useContext(FileManagerContext);
+    useEffect(() => {
+        fileManager.setOpenFiles(fileManager.openFiles);
+    }, [sm.terminalCollapsed]);
+
     return (
         <Resizable
             size={{
