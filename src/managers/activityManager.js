@@ -36,7 +36,6 @@ export const setupActivityManager = () => {
             boostTimeout = setTimeout(() => {
                 setXpBoost(prevXpBoost => {
                     const newXpBoost = Math.max(1, Math.min(prevXpBoost + (active ? boostInc : -boostInc), maxBoostValue));
-                    console.log("Boost", newXpBoost);
                     return newXpBoost;
                 });
                 handleBoost();
@@ -47,7 +46,6 @@ export const setupActivityManager = () => {
             clearTimeout(xpTimeout);
             xpTimeout = setTimeout(() => {
                 setXp(prevXp => {
-                    console.log(!active && xpBoost);
                     const newXp = Math.max(0, !active ? prevXp - inactiveWeight : prevXp);
                     return newXp;
                 });
@@ -66,7 +64,6 @@ export const setupActivityManager = () => {
     const updateXp = (weight) => {
         setXp(prevXp => {
             const newXp = Math.min(nbImages * 100, prevXp + weight * xpBoost);
-            console.log("Updated XP:", newXp);
             return newXp;
         });
     };
