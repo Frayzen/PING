@@ -48,7 +48,7 @@ export const setupActivityManager = () => {
             xpTimeout = setTimeout(() => {
                 setXp(prevXp => {
                     console.log(!active && xpBoost);
-                    const newXp = Math.max(0, active ? prevXp - inactiveWeight : prevXp);
+                    const newXp = Math.max(0, !active ? prevXp - inactiveWeight : prevXp);
                     return newXp;
                 });
                 handleXp();
