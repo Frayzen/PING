@@ -25,17 +25,13 @@ export const setupFileManager = (curPath) => {
         setOpenFiles([...openFiles, file]);
         setActive(file);
     }
-    const closeFile = (id) => {
+    const closeFile = function(id) {
         // set openfiles to the array without the file at position id
         if (active.uid == id && openFiles.length > 1)
-            for (let i = 0; i < openFiles.length; i++)
-                if (openFiles[i].uid == id) {
-                    if (i == 0)
-                        setActive(openFiles[i + 1]);
-                    else
-                        setActive(openFiles[i - 1]);
-                    break;
-                }
+            if (openFiles[openFiles.length - 1].uid != id)
+                setActive(this.getNextFile());
+            else
+                setActive(this.getPrevFile());
         setOpenFiles(openFiles.filter((f) => {
             return (f.uid != id)
         }));

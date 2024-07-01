@@ -4,7 +4,7 @@ import FileTreeElement from "./fileTreeElement.jsx";
 
 const FileTreeFolder = ({ file, searchString }) => {
     const fileManager = useContext(FileManagerContext);
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(fileManager.fileTree == file);
     const [hover, setHover] = useState(false);
     const toggle = () => {
         setIsOpen(!isOpen);

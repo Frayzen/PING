@@ -20,8 +20,8 @@ const ShortcutHandler = () => {
                 NEXT_FILE: 'ctrl+tab',
                 PREV_FILE: 'ctrl+shift+tab',
                 CLOSE_FILE: 'ctrl+w',
-                TOGGLE_LEFT: 'ctrl+k',
-                TOGGLE_TERMINAL: "ctrl+;",
+                TOGGLE_LEFT: 'ctrl+;',
+                TOGGLE_TERMINAL: "ctrl+'",
                 TOGGLE_FULLSCREEN: 'ctrl+.',
                 FOCUS_SEARCH: 'ctrl+f',
             }}
@@ -41,9 +41,9 @@ const ShortcutHandler = () => {
                         fileManager.openFile(prev);
                 },
                 CLOSE_FILE: () => {
-                    const next = fileManager.getNextFile();
-                    if (next)
-                        fileManager.closeFile(next.uid);
+                    const file = fileManager.active;
+                    if (file)
+                        fileManager.closeFile(file.uid);
                 },
                 TOGGLE_LEFT: () => {
                     const val = !sm.leftCollapsed;
