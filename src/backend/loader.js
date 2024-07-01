@@ -1,4 +1,4 @@
-import fileEndpoints from "./getFiles.js";
+import fileEndpoints from "./files.js";
 import termEndpoints from "./term.js";
 import { ipcMain } from 'electron';
 
@@ -14,7 +14,7 @@ const handleEndpoints = (eps) => {
     });
 }
 
-const loadBackend = (ptyProcess) => {
+const loadBackend = () => {
     handleEndpoints(fileEndpoints);
     handleEndpoints(termEndpoints);
     ipcMain.on('fetchEndpoints', (event) => {

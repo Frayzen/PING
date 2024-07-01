@@ -2,7 +2,7 @@ import { useState, createContext } from "react";
 import { Toast, TOAST_STATUS } from "bootstrap-toaster";
 
 export const setupProjectManager = () => {
-    const [current, setCurrent] = useState(null);
+    const [current, setCurrent] = useState('/home/tim/workspace/s6/ai/NumpyAI-Models/');
     return {
         current,
         setCurrent,

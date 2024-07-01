@@ -79,7 +79,7 @@ export const setupActivityManager = () => {
                     return [];
                 }
                 return newSequence;
-            });
+        });
         };
         document.addEventListener('keypress', handleKeyPress);
 
@@ -107,5 +107,5 @@ export const setupActivityManager = () => {
     };
 };
 
-export const ActivityManager = createContext(null);
+export const ActivityManagerContext = createContext(null);
 
