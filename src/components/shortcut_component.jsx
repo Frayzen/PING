@@ -3,6 +3,7 @@ import { ProjectManagerContext } from "../managers/projectManager";
 import { GlobalHotKeys, configure } from "react-hotkeys";
 import { FileManagerContext } from "../managers/fileManager";
 import { SizeManagerContext } from "../managers/sizeManager";
+import bootbox from "bootbox";
 
 const ShortcutHandler = () => {
     const projectManager = React.useContext(ProjectManagerContext);
@@ -15,6 +16,7 @@ const ShortcutHandler = () => {
         <GlobalHotKeys
             allowChanges={true}
             keyMap={{
+                CLOSE_PROJECT: 'ctrl+q',
                 SAVE_TEXT: 'ctrl+s',
                 OPEN_PROJECT: 'ctrl+o',
                 NEXT_FILE: 'ctrl+tab',
@@ -65,6 +67,19 @@ const ShortcutHandler = () => {
                     sm.setLeftCollapsed(val);
                     sm.setTerminalCollapsed(val);
                 },
+                CLOSE_PROJECT: () => {
+                    const result = bootbox.confirm({
+                        title: "Do you really want to close the project?",
+                        message: "This will close the project and all files. Make sure you have saved your work!",
+                        className: "text-danger",
+                        centerVertical: true,
+                        callback: (result) => {
+                            if (result)
+                                projectManager.closeProject();
+                        }
+                    });
+                },
+
             }}
         />
     </>);

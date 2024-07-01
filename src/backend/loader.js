@@ -1,5 +1,6 @@
 import fileEndpoints from "./files.js";
 import termEndpoints from "./term.js";
+import persistentEndpoints from "./persistent.js";
 import { ipcMain } from 'electron';
 
 const endpoints = [];
@@ -17,6 +18,7 @@ const handleEndpoints = (eps) => {
 const loadBackend = (ptyProcess) => {
     handleEndpoints(fileEndpoints);
     handleEndpoints(termEndpoints);
+    handleEndpoints(persistentEndpoints);
     ipcMain.on('fetchEndpoints', (event) => {
         event.returnValue = endpoints;
     });
