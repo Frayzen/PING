@@ -11,11 +11,10 @@ import { SizeManagerContext } from "../../managers/sizeManager.js";
 const minLeftWidth = 130;
 const LeftComponent = () => {
     const [searchString, setSearchString] = useState("");
-    const fileManager = useContext(FileManagerContext)
+    const fileManager = useContext(FileManagerContext);
     const projectManager = useContext(ProjectManagerContext);
     const sm = useContext(SizeManagerContext);
     return (
-
         <Resizable
             size={{ width: sm.leftCollapsed ? 30 : sm.leftWidth, height: "100%" }}
             onResizeStop={(e, direction, ref, d) => {
@@ -41,6 +40,9 @@ const LeftComponent = () => {
                     <div className="scrollbar mx-1 my-2 h-100" id="filetree">
                         <FileTree searchString={searchString} />
                     </div>
+                    <div className="mt-auto">
+                        <ProfileComponent />
+                    </div>
                 </div>
             }
         </Resizable>
@@ -48,3 +50,4 @@ const LeftComponent = () => {
 }
 
 export default LeftComponent;
+

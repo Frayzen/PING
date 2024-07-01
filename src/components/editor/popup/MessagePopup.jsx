@@ -1,20 +1,23 @@
 import React from 'react';
 import { Modal, Button } from 'react';
 
-const MessagePopup = ({ show, handleClose, message }) => {
+const MessagePopup = ({ show, handleClose, message, disableClose = false }) => {
     return (
-        <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
+        <Modal show={show} onHide={disableClose ? null : handleClose} backdrop={disableClose ? "static" : true}>
+            <Modal.Header closeButton={!disableClose}>
                 <Modal.Title>Message</Modal.Title>
             </Modal.Header>
             <Modal.Body>{message}</Modal.Body>
-            <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                    Close
-                </Button>
-            </Modal.Footer>
+            {!disableClose && (
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            )}
         </Modal>
     );
 };
 
 export default MessagePopup;
+

@@ -24,4 +24,6 @@ contextBridge.exposeInMainWorld('api', endpointsObject);
 ipcRenderer.on('terminal.data', (event, data) => {
     termHandler(data);
 })
-
+contextBridge.exposeInMainWorld('electronAPI', {
+  fetchTree: (path) => ipcRenderer.send('delete-file', path)
+})

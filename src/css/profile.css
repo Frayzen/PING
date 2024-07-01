@@ -6,9 +6,9 @@
 /* } */
 
 #profile-picture {
-    max-width: 8rem;
-    aspect-ratio: 1 / 1;
-    background: url("../media/images/sloth.png");
+    width: 8rem;
+    aspect-ratio : 1 / 1;
+    background: url("~/public/sloth.png");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;

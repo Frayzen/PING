@@ -15,7 +15,7 @@ const handleEndpoints = (eps) => {
     });
 }
 
-const loadBackend = (ptyProcess) => {
+const loadBackend = () => {
     handleEndpoints(fileEndpoints);
     handleEndpoints(termEndpoints);
     handleEndpoints(persistentEndpoints);

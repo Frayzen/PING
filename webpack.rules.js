@@ -27,6 +27,13 @@ module.exports = [
             }
         }
     },
+    {
+        test: /\.(png|jpe?g|gif)$/i,
+        loader: 'file-loader',
+        options: {
+            name: '[path][name].[ext]',
+        },
+    },
     // Put your webpack loader rules in this array.  This is where you would put
     // your ts-loader configuration for instance:
     /**
