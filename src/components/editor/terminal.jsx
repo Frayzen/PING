@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect, useLayoutEffect } from "react";
 import { TerminalManagerContext } from "../../managers/terminalManager.js";
 import { Resizable } from "re-resizable";
 import { SizeManagerContext } from "../../managers/sizeManager.js";
+import { FileManagerContext } from "../../managers/fileManager.js";
 
 const minTermHeight = 100;
 const maxTermHeight = 500;
@@ -13,7 +14,6 @@ const TerminalComponent = () => {
     const term = new Terminal({
         fontFamily: 'FiraCode Nerd Font',
         fontSize: 14,
-        rows: 10,
         theme: {
             background: getComputedStyle(document.body).getPropertyValue('--term-bg-color'),
             cursor: '#ffffff',
@@ -32,14 +32,30 @@ const TerminalComponent = () => {
             terminalManager.terminalCommand(cmd);
         });
         term.open(document.getElementById('terminal-container'));
-        // $("#terminal-container").on("resize", () => {
-        //     console.log("RESIZED")
-        //     const width = $("#terminal-container").width();
-        //     const height = $("#terminal-container").height();
-        //     term.resize((width / 17) | 0, (height / 17) | 0);
-        // });
         fitAddon.fit();
+
+        const xterm_resize_ob = new ResizeObserver(() => {
+            // since we are observing only a single element, so we access the first element in entries array
+            setTimeout(() => {
+                try {
+                    if ($("#terminal-container").outerHeight() < minTermHeight)
+                        return;
+                    fitAddon.fit();
+                    term.refresh(0, term.rows - 1);
+                } catch (err) {
+                    console.log(err);
+                }
+            }, 100);
+        });
+
+        xterm_resize_ob.observe(document.getElementById('terminal-container'));
     }, []);
+
+    const fileManager = React.useContext(FileManagerContext);
+    useEffect(() => {
+        fileManager.setOpenFiles(fileManager.openFiles);
+    }, [sm.terminalCollapsed]);
+
     return (
         <Resizable
             size={{
@@ -63,12 +79,13 @@ const TerminalComponent = () => {
                 </div>
             </div>
             {sm.terminalCollapsed &&
-                <div className="h-100 text-center bg-dark">
+                <div className="text-center bg-dark h-100">
                     <i className="fa fa-chevron-up text-white"
                         style={{ fontSize: "1em", cursor: "pointer" }}
                         onClick={() => sm.setTerminalCollapsed(false)}>
                     </i>
-                </div>}
+                </div >
+            }
         </Resizable >
     );
 }

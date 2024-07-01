@@ -1,17 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import TabListItem from "./openFiles/tabListItem.jsx";
 import { FileManagerContext } from "../../managers/fileManager.js";
 import FileOpenText from "./openFiles/fileOpenText.jsx";
 import TerminalComponent from "./terminal.jsx";
-import { Resizable } from "re-resizable";
-
-const defaultTermHeight = 250;
-const minTermHeight = 100;
 
 const RightComponent = () => {
     const fileManager = useContext(FileManagerContext);
-    const [termHeight, setTermHeight] = useState(250);
-    const [collapsed, setCollapsed] = useState(false);
     return (
         <>
             <ul className="nav nav-tabs border-0 align-self-end mt-1 d-flex flex-nowrap scrollbar w-100 h-auto" id="fileTabs" role="tablist">
@@ -28,8 +22,9 @@ const RightComponent = () => {
                     return <FileOpenText file={file} />
                 })}
             </div>
-            <TerminalComponent />
-
+            <div>
+                <TerminalComponent />
+            </div>
         </>
     );
 }

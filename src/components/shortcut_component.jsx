@@ -20,7 +20,10 @@ const ShortcutHandler = () => {
                 NEXT_FILE: 'ctrl+tab',
                 PREV_FILE: 'ctrl+shift+tab',
                 CLOSE_FILE: 'ctrl+w',
+                TOGGLE_LEFT: 'ctrl+;',
+                TOGGLE_TERMINAL: "ctrl+'",
                 TOGGLE_FULLSCREEN: 'ctrl+.',
+                FOCUS_SEARCH: 'ctrl+f',
             }}
             handlers={{
                 SAVE_TEXT: () => {
@@ -38,12 +41,27 @@ const ShortcutHandler = () => {
                         fileManager.openFile(prev);
                 },
                 CLOSE_FILE: () => {
-                    const next = fileManager.getNextFile();
-                    if (next)
-                        fileManager.closeFile(next.uid);
+                    const file = fileManager.active;
+                    if (file)
+                        fileManager.closeFile(file.uid);
+                },
+                TOGGLE_LEFT: () => {
+                    const val = !sm.leftCollapsed;
+                    sm.setLeftCollapsed(val);
+                    if (val)
+                        $("#filetree").focus();
+                },
+                FOCUS_SEARCH: () => {
+                    $("#search-input").focus();
+                },
+                TOGGLE_TERMINAL: () => {
+                    const val = !sm.terminalCollapsed;
+                    sm.setTerminalCollapsed(val);
+                    if (val)
+                        $("#terminal-container").focus();
                 },
                 TOGGLE_FULLSCREEN: () => {
-                    const val = !sm.leftCollapsed;
+                    const val = !sm.leftCollapsed && !sm.terminalCollapsed;
                     sm.setLeftCollapsed(val);
                     sm.setTerminalCollapsed(val);
                 },

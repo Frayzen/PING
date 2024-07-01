@@ -8,7 +8,7 @@ const handleEndpoints = (eps) => {
     // for each key value pair in eps
     Object.entries(eps).forEach(([key, fn]) => {
         ipcMain.handle(key, async (event, ...args) => {
-            return await fn(...args);
+            return fn(...args);
         });
         endpoints.push(key);
     });
