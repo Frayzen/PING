@@ -2,13 +2,29 @@
 // https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts
 import { contextBridge, ipcRenderer } from 'electron'
 
-contextBridge.exposeInMainWorld('api', {
-    onSaveText: (callback) => ipcRenderer.on('save-text', callback),
-});
+const defineEndpoints = (endpoints) => {
+    const ret = {};
+    endpoints.forEach((name) => {
+        ret[name] = (...args) => {
+            return ipcRenderer.invoke(name, ...args);
+        }
+    });
+    return ret;
+}
 
-contextBridge.exposeInMainWorld('electronAPI', {
-  fetchTree: (path) => ipcRenderer.send('fetch-tree', path)
+const endpoints = ipcRenderer.sendSync('fetchEndpoints');
+const endpointsObject = defineEndpoints(endpoints);
+let termHandler = (data) => {
+    console.log(data, "BASIC HANDLER");
+};
+endpointsObject.onTerminalData = (fn) => {
+    termHandler = fn;
+}
+contextBridge.exposeInMainWorld('api', endpointsObject);
+ipcRenderer.on('terminal.data', (event, data) => {
+    termHandler(data);
 })
 contextBridge.exposeInMainWorld('electronAPI', {
   fetchTree: (path) => ipcRenderer.send('delete-file', path)
 })
+

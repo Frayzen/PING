@@ -1,22 +1,26 @@
 import React from "react";
-import RightComponent from "./components/rightComponent.jsx";
-import LeftComponent from "./components/leftComponent.jsx";
 import ProfileComponent from "./components/profile.jsx";
 import { ActivityManager, setupActivityManager } from "./managers/activityManager.js";
+import RightComponent from "./components/editor/rightComponent.jsx";
+import LeftComponent from "./components/editor/leftComponent.jsx";
+import IDE from "./components/ide.jsx";
 
 function App() {
+    const { ProjectManagerContext, setupProjectManager } = require("./managers/projectManager.js");
+    const { SizeManagerContext, setupSizeManager } = require("./managers/sizeManager.js");
     return (
-        <div className="container-fluid bg-light-subtle min-vh-100 min-vw-100 p-0 d-flex">
-            <ActivityManager.Provider value={setupActivityManager()}>
-                <div className="col-3 bg-body-secondary">
-                    <LeftComponent />
-                </div>
-                <div className="w-100 bg-body-tertiary">
-                    <RightComponent />
-                </div>
-                <ProfileComponent />
-            </ActivityManager.Provider>
-        </div>
+        <ProjectManagerContext.Provider value={setupProjectManager()}>
+            <SizeManagerContext.Provider value={setupSizeManager()}>
+            <div className="container-fluid bg-light-subtle min-vh-100 d-flex p-0"
+                style={{
+                    width: "100vw",
+                    height: "100vh",
+                }}
+            >
+                <IDE />
+            </div>
+            </SizeManagerContext.Provider>
+        </ProjectManagerContext.Provider>
     );
 }
 
