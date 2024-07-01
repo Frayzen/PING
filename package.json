@@ -42,14 +42,27 @@
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/vue-fontawesome": "^3.0.8",
+    "@monaco-editor/react": "^4.6.0",
+    "@types/jquery": "^3.5.30",
+    "@uiw/codemirror-extensions-langs": "^4.22.2",
+    "@uiw/codemirror-theme-atomone": "^4.22.2",
+    "@uiw/codemirror-themes": "^4.22.2",
+    "@uiw/react-codemirror": "^4.22.2",
+    "bootbox": "^6.0.0",
     "bootstrap": "^5.3.3",
+    "bootstrap-toaster": "^5.2.0-beta1.1",
     "electron-squirrel-startup": "^1.0.1",
     "fs": "^0.0.1-security",
     "node-global-key-listener": "^0.3.0",
+    "jquery": "^3.7.1",
+    "language-detect": "^1.1.0",
+    "node-pty": "^1.0.0",
     "path": "^0.12.7",
+    "re-resizable": "^6.9.17",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.3",
     "react-dom": "^18.3.1",
-    "react-folder-tree": "^5.1.1"
+    "react-hotkeys": "^2.0.0",
+    "xterm": "^5.0.0"
   }
 }

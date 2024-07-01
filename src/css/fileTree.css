@@ -1,7 +1,12 @@
-#filetree * {
+#filetree ul {
     list-style: none;
 }
 
 #filetree i {
-    padding: .5rem;
+    padding-left: .3rem;
+    font-size: .8rem;
+}
+
+#filetree i:nth-child(1) {
+    font-size: 1.2rem;
 }

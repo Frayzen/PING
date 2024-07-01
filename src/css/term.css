@@ -1,0 +1,10 @@
+.terminal {
+    margin: auto;
+}
+
+:root {
+    --term-bg-color: #111111;
+}
+#terminal-container {
+    background-color: var(--term-bg-color);
+}
