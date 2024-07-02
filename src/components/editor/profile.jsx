@@ -1,24 +1,19 @@
 import React, { useEffect, useState } from "react";
-// import armadillo from '../../../public/armadillo.png';
 import chief from '../../../public/chief.png';
 import fatcheetah from '../../../public/fatcheetah.png';
 import florian from '../../../public/florian.png';
 import snoop from '../../../public/snoop.png';
 import rabbit from '../../../public/rabbit.png';
 import sloth from '../../../public/sloth.png';
-// import cunt from '../../../public/cunt.png';
-
 import { ActivityManagerContext } from "../../managers/activityManager.js";
 const Profile = () => {
     const activityManager = React.useContext(ActivityManagerContext);
     useEffect(() => {
-        return () => {
-            var imgs = [sloth, snoop, fatcheetah, florian, chief, rabbit];
+            var imgs = [sloth, fatcheetah, florian, chief, rabbit];
             const profilePicture = document.getElementById('profile-picture');
             let i = (activityManager.xp - (activityManager.xp % 100)) / 100;
-            console.log("style = " , profilePicture.style.backgroundImage);
-            profilePicture.style.backgroundImage = `url(${imgs[i % imgs.length]})`;
-        }
+            i = Math.min(i, imgs.length - 1);
+            profilePicture.style.backgroundImage = `url(${imgs[i]})`;
     }, [activityManager.xp]);
 
     return (

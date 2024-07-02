@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext } from "react";
-import words from "../../public/words.json";
+import { createKeySequenceHandler } from "../backend/stats.js";
 
 export const setupActivityManager = () => {
     const [xpBoost, setXpBoost] = useState(1);
@@ -61,32 +61,22 @@ export const setupActivityManager = () => {
         };
     }, [active]);
 
-    const updateXp = (weight) => {
+    const updateXp = () => {
         setXp(prevXp => {
-            const newXp = Math.min(nbImages * 100, prevXp + weight * xpBoost);
+            const newXp = Math.min(nbImages * 100, prevXp + wordWeight * xpBoost);
             return newXp;
         });
     };
+    const keySequenceHandler = createKeySequenceHandler(updateXp, setKeySequence);
 
     useEffect(() => {
-        const handleKeyPress = (event) => {
-            const key = event.key;
-            setKeySequence(prevSequence => {
-                const newSequence = [...prevSequence, key].slice(-Math.max(...words.map(seq => seq.length)));
-                const matchedSequence = words.find(seq => newSequence.join('').endsWith(seq));
-                if (matchedSequence) {
-                    updateXp(wordWeight);
-                    return [];
-                }
-                return newSequence;
-        });
-        };
-        document.addEventListener('keypress', handleKeyPress);
+        document.addEventListener('keypress', keySequenceHandler);
 
         return () => {
-            document.removeEventListener('keypress', handleKeyPress);
+            document.removeEventListener('keypress', keySequenceHandler);
         };
     }, [xpBoost]);
+
 
     useEffect(() => {
         document.addEventListener('mousemove', handleActivity);
