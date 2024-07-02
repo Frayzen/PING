@@ -12,13 +12,11 @@ import { ActivityManagerContext } from "../../managers/activityManager.js";
 const Profile = () => {
     const activityManager = React.useContext(ActivityManagerContext);
     useEffect(() => {
-        return () => {
-            var imgs = [sloth, snoop, fatcheetah, florian, chief, rabbit];
-            const profilePicture = document.getElementById('profile-picture');
-            let i = (activityManager.xp - (activityManager.xp % 100)) / 100;
-            console.log("style = " , profilePicture.style.backgroundImage);
-            profilePicture.style.backgroundImage = `url(${imgs[i % imgs.length]})`;
-        }
+        var imgs = [sloth, snoop, fatcheetah, florian, chief, rabbit];
+        const profilePicture = document.getElementById('profile-picture');
+        let i = (activityManager.xp - (activityManager.xp % 100)) / 100;
+        console.log("style = ", profilePicture.style.backgroundImage);
+        profilePicture.style.backgroundImage = `url(${imgs[i % imgs.length]})`;
     }, [activityManager.xp]);
 
     return (

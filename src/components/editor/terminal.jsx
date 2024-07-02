@@ -3,6 +3,7 @@ import { TerminalManagerContext } from "../../managers/terminalManager.js";
 import { Resizable } from "re-resizable";
 import { SizeManagerContext } from "../../managers/sizeManager.js";
 import { FileManagerContext } from "../../managers/fileManager.js";
+import { ActivityManagerContext } from "../../managers/activityManager.js";
 
 const minTermHeight = 100;
 const maxTermHeight = 500;
@@ -11,6 +12,7 @@ const TerminalComponent = () => {
     const Terminal = require('xterm').Terminal;
     const FitAddon = require('xterm-addon-fit').FitAddon;
     const sm = React.useContext(SizeManagerContext);
+    const activityManager = React.useContext(ActivityManagerContext);
     const term = new Terminal({
         fontFamily: 'FiraCode Nerd Font',
         fontSize: 14,
@@ -30,6 +32,8 @@ const TerminalComponent = () => {
         });
         term.onData(cmd => {
             terminalManager.terminalCommand(cmd);
+            activityManager.handleKeyPress(cmd);
+            activityManager.handleActivity();
         });
         term.open(document.getElementById('terminal-container'));
         fitAddon.fit();

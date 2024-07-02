@@ -1,12 +1,17 @@
 import React, { useEffect, useContext } from "react";
 import FileTreeElement from "./fileTreeElement.jsx";
 import { FileManagerContext } from "../../../managers/fileManager.js";
+import { Toast, TOAST_STATUS } from "bootstrap-toaster";
+import { ProjectManagerContext } from "../../../managers/projectManager.js";
 
 const FileTree = ({ searchString }) => {
     const fileManager = useContext(FileManagerContext);
+    const projectManager = useContext(ProjectManagerContext);
     useEffect(() => {
         if (fileManager.fileTree == null)
-            fileManager.fetchFiles();
+            fileManager.fetchFiles((files) => {
+                fileManager.setFileTree(files);
+            });
     }, [fileManager.fileTree]);
     if (fileManager.fileTree == null) {
         return (

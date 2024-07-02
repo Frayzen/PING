@@ -5,6 +5,7 @@ var shell = os.platform() === "win32" ? "powershell.exe" : (process.env.SHELL ||
 
 var termProcess;
 const createTerminal = (path) => {
+    console.log("Creating terminal for " + path);
     termProcess = pty.spawn(shell, [], {
         name: 'xterm-color',
         cols: 80,

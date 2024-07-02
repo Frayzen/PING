@@ -68,23 +68,25 @@ export const setupActivityManager = () => {
         });
     };
 
-    useEffect(() => {
-        const handleKeyPress = (event) => {
-            const key = event.key;
-            setKeySequence(prevSequence => {
-                const newSequence = [...prevSequence, key].slice(-Math.max(...words.map(seq => seq.length)));
-                const matchedSequence = words.find(seq => newSequence.join('').endsWith(seq));
-                if (matchedSequence) {
-                    updateXp(wordWeight);
-                    return [];
-                }
-                return newSequence;
+    const handleKeyPress = (key) => {
+        setKeySequence(prevSequence => {
+            const newSequence = [...prevSequence, key].slice(-Math.max(...words.map(seq => seq.length)));
+            const matchedSequence = words.find(seq => newSequence.join('').endsWith(seq));
+            if (matchedSequence) {
+                updateXp(wordWeight);
+                return [];
+            }
+            return newSequence;
         });
+    };
+    useEffect(() => {
+        const keypressHandler = (event) => {
+            handleKeyPress(event.key);
         };
-        document.addEventListener('keypress', handleKeyPress);
+        document.addEventListener('keypress', keypressHandler);
 
         return () => {
-            document.removeEventListener('keypress', handleKeyPress);
+            document.removeEventListener('keypress', keypressHandler);
         };
     }, [xpBoost]);
 
@@ -101,6 +103,8 @@ export const setupActivityManager = () => {
     }, []);
 
     return {
+        handleActivity,
+        handleKeyPress,
         xpBoost,
         xp,
         active,

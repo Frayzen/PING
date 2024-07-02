@@ -43,12 +43,14 @@ export const setupFileManager = (curPath) => {
         active,
         setActive,
         openFiles,
-        fetchFiles: async () => {
+        fetchFiles: async (onSuccess) => {
             setFileTree(null);
             // wait 1s
             await new Promise(resolve => setTimeout(resolve, 100));
-            window.api.fetchFiles(curPath).then((files) => {
-                setFileTree(files);
+            return window.api.fetchFiles(curPath).then((files) => {
+                onSuccess(files);
+            }).catch((e) => {
+                console.log(e);
             });
         },
         fetchFileContent: async (path) => {
